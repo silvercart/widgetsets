@@ -11,12 +11,3 @@ de:
         SINGULARNAME: 'Widget Set'
         PAGES: 'zugeordnete Seiten'
         TITLE: 'Bezeichnung'
-    WidgetSetTextWidget:
-        TITLE: 'Freitext'
-        DESCRIPTION: 'Geben Sie beliebigen Text ein.'
-        CSSFIELD_LABEL: 'Zusätzliche CSS Klassen (optional):'
-        FREETEXTFIELD_LABEL: 'Ihr Text:'
-        HEADLINEFIELD_LABEL: 'Überschrift (optional):'
-        IS_CONTENT_VIEW: 'Inhaltsansicht statt Widgetansicht verwenden'
-        PLURALNAME: 'Übersetzungen'
-        SINGULARNAME: 'Übersetzung'
