@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Page extension to add {@link WidgetSet} to a page
+ */
 class WidgetSetPageExtension extends DataExtension {
 
     /**
@@ -15,9 +17,12 @@ class WidgetSetPageExtension extends DataExtension {
     /**
      * updates cms fields and adds widgetset gridfields
      *
-     * @param  FieldList $fields fields
+     * @param FieldList $fields fields
      *
      * @return void
+     *
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 04.01.2013
      */
     public function updateCMSFields(FieldList $fields) {
         // create the configuration for the grid fields
