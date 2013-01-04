@@ -1,6 +1,11 @@
 <?php
 /**
  * Page extension to add {@link WidgetSet} to a page
+ *
+ * @author Patrick Schneider <pschneider@pixeltricks.de>
+ * @since 04.01.2013
+ * @copyright 2013 pixeltricks GmbH
+ * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
 class WidgetSetPageExtension extends DataExtension {
 
@@ -37,7 +42,7 @@ class WidgetSetPageExtension extends DataExtension {
 
         $fields->addFieldToTab("Root.Widgets", $widgetSetSidebarLabel);
         $fields->addFieldToTab("Root.Widgets", $widgetSetSidebarField);
-        # $fields->addFieldToTab("Root.Widgets", $widgetSetContentlabel);
+        $fields->addFieldToTab("Root.Widgets", $widgetSetContentlabel);
         $fields->addFieldToTab("Root.Widgets", $widgetSetContentField);
     }
 }
