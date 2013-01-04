@@ -1,0 +1,22 @@
+en:
+    WidgetSetWidget:
+        SORT_ORDER_LABEL: 'Sort order'
+        CONTENT: 'Content'
+        TYPE: 'Type'
+    WidgetSetWidgets:
+        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets for the content area'
+        WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets for the sidebar'
+    WidgetSet:
+        PLURALNAME: 'Widget sets'
+        SINGULARNAME: 'Widget set'
+        PAGES: 'assigned pages'
+        TITLE: 'Title'
+    WidgetSetTextWidget:
+        TITLE: 'Free text'
+        DESCRIPTION: 'Enter any text you want.'
+        CSSFIELD_LABEL: 'Extra CSS classes (optional):'
+        FREETEXTFIELD_LABEL: 'Your text:'
+        HEADLINEFIELD_LABEL: 'Headline (optional):'
+        IS_CONTENT_VIEW: 'use content view instead of widget view'
+        PLURALNAME: 'Translations'
+        SINGULARNAME: 'Translation'
