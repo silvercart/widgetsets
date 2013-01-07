@@ -1,33 +1,33 @@
 <?php
 /**
- * Copyright 2011 pixeltricks GmbH
+ * Copyright 2013 pixeltricks GmbH
  *
- * This file is part of SilverCart.
+ * This file is part of the Widgetsets module.
  *
- * SilverCart is free software: you can redistribute it and/or modify
+ * Widgetsets module is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * SilverCart is distributed in the hope that it will be useful,
+ * It is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with SilverCart.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package Silvercart
- * @subpackage Widgets
- */
-
-/**
- * Provides some basic functionality for all SilverCart widgets.
+ * along with this package. If not, see <http://www.gnu.org/licenses/>.
  *
  * @package Widgetsets
  * @subpackage Base
- * @author Sascha Koehler <skoehler@pixeltricks.de>
- * @since 26.05.2011
+ */
+
+/**
+ * Provides some basic functionality for all Widgetset widgets.
+ *
+ * @package Widgetsets
+ * @subpackage Base
+ * @author Patrick Schneider <pschneider@pixeltricks.de>
+ * @since 04.01.2013
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  * @copyright 2013 pixeltricks GmbH
  */
@@ -44,11 +44,11 @@ class WidgetSetWidget extends Widget {
 }
 
 /**
- * Provides some basic functionality for all SilverCart widgets.
+ * Provides some basic functionality for all Widgetset widgets.
  *
  * @package Widgetsets
  * @subpackage Base
- * @author Sascha Koehler <skoehler@pixeltricks.de>
+ * @author Patrick Schneider <pschneider@pixeltricks.de>
  * @since 04.01.2013
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  * @copyright 2013 pixeltricks GmbH
@@ -82,7 +82,7 @@ class WidgetSetWidget_Controller extends Widget_Controller {
      * @param string $widget Not documented in parent class unfortunately
      *
      * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 26.05.2011
+     * @since 04.01.2013
      */
     public function __construct($widget = null) {
         parent::__construct($widget);
@@ -105,9 +105,9 @@ class WidgetSetWidget_Controller extends Widget_Controller {
      * @return string
      *
      * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 18.08.2011
+     * @since 04.01.2013
      */
-    public function PageByIdentifierCode($identifierCode = "SilvercartFrontPage") {
+    public function PageByIdentifierCode($identifierCode = "PixeltricksHomePage") {
         return WidgetSetTools::PageByIdentifierCode($identifierCode);
     }
 
@@ -119,9 +119,9 @@ class WidgetSetWidget_Controller extends Widget_Controller {
      * @return string
      *
      * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 18.08.2011
+     * @since 04.01.2013
      */
-    public function PageByIdentifierCodeLink($identifierCode = "SilvercartFrontPage") {
+    public function PageByIdentifierCodeLink($identifierCode = "PixeltricksHomePage") {
         return WidgetSetTools::PageByIdentifierCodeLink($identifierCode);
     }
 
@@ -135,7 +135,7 @@ class WidgetSetWidget_Controller extends Widget_Controller {
      * @return void
      *
      * @author Sebastian Diel <sdiel@pixeltricks.de>
-     * @since 13.06.2012
+     * @since 04.01.2013
      */
     public static function registerFilterPlugin($plugin) {
         $reflectionClass = new ReflectionClass($plugin);

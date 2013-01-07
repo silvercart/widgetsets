@@ -1,34 +1,34 @@
 <?php
 /**
- * Copyright 2012 pixeltricks GmbH
+ * Copyright 2013 pixeltricks GmbH
  *
- * This file is part of SilverCart.
+ * This file is part of the Widgetsets module.
  *
- * SilverCart is free software: you can redistribute it and/or modify
+ * Widgetsets module is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * SilverCart is distributed in the hope that it will be useful,
+ * It is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with SilverCart.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this package. If not, see <http://www.gnu.org/licenses/>.
  *
- * @package Silvercart
+ * @package Widgetsets
  * @subpackage Base
  */
 
 /**
- * Provides methods for common tasks in SilverCart.
+ * Provides methods for common tasks.
  *
- * @package Silvercart
+ * @package Widgetsets
  * @subpackage Base
- * @author Sascha Koehler <skoehler@pixeltricks.de>
- * @copyright 2012 pixeltricks GmbH
- * @since 16.02.2012
+ * @author Patrick Schneider <pschneider@pixeltricks.de>
+ * @copyright 2013 pixeltricks GmbH
+ * @since 04.01.2013
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
 class WidgetSetTools extends Object {
@@ -81,7 +81,7 @@ class WidgetSetTools extends Object {
      * @return string The objects singular name
      *
      * @author Sebastian Diel <sdiel@pixeltricks.de>
-     * @since 04.05.2012
+     * @since 04.01.2013
      */
     public static function singular_name_for($dataObject) {
         if (_t($dataObject->ClassName . '.SINGULARNAME')) {
@@ -101,7 +101,7 @@ class WidgetSetTools extends Object {
      * @return string the objects plural name
      *
      * @author Sebastian Diel <sdiel@pixeltricks.de>
-     * @since 04.05.2012
+     * @since 04.01.2013
      */
     public static function plural_name_for($dataObject) {
         if (_t($dataObject->ClassName . '.PLURALNAME')) {
