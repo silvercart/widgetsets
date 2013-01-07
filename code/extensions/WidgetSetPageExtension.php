@@ -201,5 +201,26 @@ class WidgetSetPageExtenstion_Controller extends DataExtension {
         }
         $this->WidgetSetContentControllers = $controllers;
         $this->WidgetSetContentControllers->sort('Sort', 'ASC');
+        
+        $many_many = Object::get_static($this->owner->ClassName, 'many_many');
+        $ignoreRelations = array(
+            'WidgetSetSidebar',
+            'WidgetSetContent',
+        );
+        foreach ($many_many as $relationName => $relationType) {
+            if ($relationType == 'WidgetSet' &&
+                !in_array($relationName, $ignoreRelations)) {
+                $controllerName = $relationName.'Controllers';
+                $controllers    = new ArrayList();
+
+                foreach ($this->owner->{$relationName}() as $widgetSet) {
+                    $controllers->merge(
+                        $widgetSet->WidgetArea()->WidgetControllers()
+                    );
+                }
+                $this->{$controllerName} = $controllers;
+                $this->{$controllerName}->sort('Sort', 'ASC');
+            }
+        }
     }
 }
