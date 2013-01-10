@@ -21,6 +21,6 @@
  * @subpackage Config
  */
 
-Widget::add_extension('WidgetsetWidgetExtension');
-Page::add_extension('WidgetsetPageExtension');
-Page_Controller::add_extension('WidgetSetPageExtenstion_Controller');
+Widget::add_extension('Widget', 'WidgetsetWidgetExtension');
+Page::add_extension('Page', 'WidgetsetPageExtension');
+Page_Controller::add_extension('Page_Controller', 'WidgetSetPageExtenstion_Controller');
