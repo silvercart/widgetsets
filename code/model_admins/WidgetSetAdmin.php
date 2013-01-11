@@ -64,20 +64,6 @@ class WidgetSetAdmin extends ModelAdmin {
     public $showImportForm = false;
 
     /**
-     * Constructor
-     *
-     * @return void
-     *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
-     */
-    public function __construct() {
-        self::$menu_title = _t('WidgetSet.PLURALNAME');
-
-        parent::__construct();
-    }
-
-    /**
      * Provides hook for decorators, so that they can overwrite css
      * and other definitions.
      *
@@ -89,6 +75,18 @@ class WidgetSetAdmin extends ModelAdmin {
     public function init() {
         parent::init();
         $this->extend('updateInit');
+    }
+    
+    /**
+     * title in the upper bar of the CMS
+     *
+     * @return string 
+     * 
+     * @author Roland Lehmann <rlehmann@pixeltricks.de>
+     * @since 11.01.2013
+     */
+    public function SectionTitle() {
+        return _t('WidgetSet.PLURALNAME');
     }
 }
 

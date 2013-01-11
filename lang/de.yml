@@ -1,13 +1,17 @@
 de:
-    WidgetSetWidget:
-        SORT_ORDER_LABEL: 'Sortierung'
-        CONTENT: 'Inhalt'
-        TYPE: 'Typ'
-    WidgetSetWidgets:
-        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets für den Inhaltsbereich'
-        WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets für die Seitenleiste'
-    WidgetSet:
-        PLURALNAME: 'Widget Sets'
-        SINGULARNAME: 'Widget Set'
-        PAGES: 'zugeordnete Seiten'
-        TITLE: 'Bezeichnung'
+  WidgetSetWidget:
+    SORT_ORDER_LABEL: "Sortierung"
+    CONTENT: "Inhalt"
+    TYPE: "Typ"
+    FRONTTITLE: "Überschrift"
+    FRONTCONTENT: "Beschreibungstext"
+  WidgetSetWidgets:
+    WIDGETSET_CONTENT_FIELD_LABEL: "Widgets für den Inhaltsbereich"
+    WIDGETSET_SIDEBAR_FIELD_LABEL: "Widgets für die Seitenleiste"
+  WidgetSet:
+    PLURALNAME: "Widget Sets"
+    SINGULARNAME: "Widget Set"
+    PAGES: "zugeordnete Seiten"
+    TITLE: "Bezeichnung"
+  WidgetSetAdmin:
+    MENUTITLE: "Widget Sets" 

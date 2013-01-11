@@ -1,0 +1,17 @@
+ru:
+  WidgetSetWidget:
+    SORT_ORDER_LABEL: "Сортировка"
+    CONTENT: "содержание"
+    TYPE: "тип"
+    FRONTCONTENT: "текст описания"
+    FRONTTITLE: "Заголовок"
+  WidgetSetWidgets:
+    WIDGETSET_CONTENT_FIELD_LABEL: "виджет для содержимого"
+    WIDGETSET_SIDEBAR_FIELD_LABEL: "виджет для панели инструментов"
+  WidgetSet:
+    PLURALNAME: "наборы виджетов"
+    SINGULARNAME: "набор виджетов"
+    PAGES: "выбранные страницы"
+    TITLE: "название"
+  WidgetSetAdmin:
+    MENUTITLE: "наборы виджетов"
