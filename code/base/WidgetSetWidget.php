@@ -98,34 +98,6 @@ class WidgetSetWidget_Controller extends Widget_Controller {
     }
 
     /**
-     * returns a page by IdentifierCode
-     *
-     * @param string $identifierCode the DataObjects IdentifierCode
-     *
-     * @return string
-     *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
-     */
-    public function PageByIdentifierCode($identifierCode = "PixeltricksHomePage") {
-        return WidgetSetTools::PageByIdentifierCode($identifierCode);
-    }
-
-    /**
-     * returns a page link by IdentifierCode
-     *
-     * @param string $identifierCode the DataObjects IdentifierCode
-     *
-     * @return string
-     *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
-     */
-    public function PageByIdentifierCodeLink($identifierCode = "PixeltricksHomePage") {
-        return WidgetSetTools::PageByIdentifierCodeLink($identifierCode);
-    }
-
-    /**
      * Registers an object as a filter plugin. Before getting the result set
      * the method 'filter' is called on the plugin. It has to return an array
      * with filters to deploy on the query.

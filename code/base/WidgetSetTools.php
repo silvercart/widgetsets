@@ -34,45 +34,6 @@
 class WidgetSetTools extends Object {
 
     /**
-     * returns a single page by IdentifierCode
-     * used to retrieve links dynamically
-     *
-     * @param string $identifierCode the classes name
-     *
-     * @return SiteTree | false a single object of the site tree; without param the SilvercartFrontPage will be returned
-     *
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 04.01.2013
-     */
-    public function PageByIdentifierCode($identifierCode = "PixeltricksHomePage") {
-        $page = Page::get()->filter('IdentifierCode', $identifierCode)->First();
-
-        if ($page) {
-            return $page;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * returns a page link by IdentifierCode
-     *
-     * @param string $identifierCode the DataObjects IdentifierCode
-     *
-     * @return string
-     *
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 04.01.2013
-     */
-    public function PageByIdentifierCodeLink($identifierCode = "PixeltricksHomePage") {
-        $page = $this->PageByIdentifierCode($identifierCode);
-        if ($page === false) {
-            return '';
-        }
-        return $page->Link();
-    }
-
-    /**
      * Returns the translated singular name of the given object. If no
      * translation exists the class name will be returned.
      *
