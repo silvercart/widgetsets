@@ -8,6 +8,8 @@ de:
   WidgetSetWidgets:
     WIDGETSET_CONTENT_FIELD_LABEL: "Widgets für den Inhaltsbereich"
     WIDGETSET_SIDEBAR_FIELD_LABEL: "Widgets für die Seitenleiste"
+    ASSIGNED_WIDGETS: "Zugeordnete Widgets"
+    INHERIT_FROM_PARENT: "Widgets der übergeordneten Seite übernehmen"
   WidgetSet:
     PLURALNAME: "Widget Sets"
     SINGULARNAME: "Widget Set"
