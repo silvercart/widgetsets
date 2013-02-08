@@ -34,6 +34,15 @@
 class WidgetSetPageExtension extends DataExtension {
 
     /**
+     * db fields
+     * 
+     * @var array
+     */
+    public static $db = array(
+        'InheritFromParent' => 'Boolean(1)',
+    );
+
+    /**
      * array to add many_many relations
      *
      * @var array
@@ -42,6 +51,20 @@ class WidgetSetPageExtension extends DataExtension {
         'WidgetSetSidebar' => 'WidgetSet',
         'WidgetSetContent' => 'WidgetSet',
     );
+
+    /**
+     * contains all registered widget sets
+     *
+     * @var array
+     */
+    protected $registeredWidgetSets = null;
+
+    /**
+     * contains all controller for the registered widget sets
+     *
+     * @var array
+     */
+    protected $registeredWidgetSetController = array();
 
     /**
      * updates cms fields and adds widgetset gridfields
@@ -54,22 +77,166 @@ class WidgetSetPageExtension extends DataExtension {
      * @since 04.01.2013
      */
     public function updateCMSFields(FieldList $fields) {
-        // create the configuration for the grid fields
+
+        $inheritFromParentField      = new CheckboxField('InheritFromParent', '');
+        $inheritFromParentFieldGroup = new FieldGroup($inheritFromParentField);
+        $inheritFromParentFieldGroup->setTitle($this->owner->fieldLabel('InheritFromParent'));
+
         $config = GridFieldConfig_RelationEditor::create();
 
-        // ...and create them
-        $widgetSetSidebarLabel = new HeaderField('WidgetSetSidebarLabel', _t('WidgetSetWidgets.WIDGETSET_SIDEBAR_FIELD_LABEL'));
-        $widgetSetSidebarField = new GridField("WidgetSetSidebar", "Sidebar widgets", $this->owner->WidgetSetSidebar(), $config);
+        $widgetSetSidebarLabel = new HeaderField('WidgetSetSidebarLabel', $this->owner->fieldLabel('WidgetSetSidebarLabel'));
+        $widgetSetSidebarField = new GridField("WidgetSetSidebar", $this->owner->fieldLabel('AssignedWidgets'), $this->owner->WidgetSetSidebar(), $config);
 
-        $widgetSetContentlabel = new HeaderField('WidgetSetContentLabel', _t('WidgetSetWidgets.WIDGETSET_CONTENT_FIELD_LABEL', 'Content'));
-        $widgetSetContentField = new GridField("WidgetSetContent", "Sidebar widgets", $this->owner->WidgetSetContent(), $config);
+        $widgetSetContentlabel = new HeaderField('WidgetSetContentLabel', $this->owner->fieldLabel('WidgetSetContentLabel'));
+        $widgetSetContentField = new GridField("WidgetSetContent", $this->owner->fieldLabel('AssignedWidgets'), $this->owner->WidgetSetContent(), $config);
 
+        $fields->addFieldToTab("Root.Widgets", $inheritFromParentFieldGroup);
         $fields->addFieldToTab("Root.Widgets", $widgetSetSidebarLabel);
         $fields->addFieldToTab("Root.Widgets", $widgetSetSidebarField);
         $fields->addFieldToTab("Root.Widgets", $widgetSetContentlabel);
         $fields->addFieldToTab("Root.Widgets", $widgetSetContentField);
     }
 
+    /**
+     * Field labels for display in tables.
+     *
+     * @param boolean $includerelations A boolean value to indicate if the labels returned include relation fields
+     *
+     * @return array
+     *
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 25.01.2013
+     */
+    public function updateFieldLabels(&$labels) {
+        $labels = array_merge(
+                $labels,
+                array(
+                    'WidgetSetContentLabel' => _t('WidgetSetWidgets.WIDGETSET_CONTENT_FIELD_LABEL'),
+                    'WidgetSetSidebarLabel' => _t('WidgetSetWidgets.WIDGETSET_SIDEBAR_FIELD_LABEL'),
+                    'AssignedWidgets'       => _t('WidgetSetWidgets.ASSIGNED_WIDGETS'),
+                    'InheritFromParent'     => _t('WidgetSetWidgets.INHERIT_FROM_PARENT'),
+                )
+        );
+    }
+
+    /**
+     * Returns all registered widget sets as associative array.
+     * 
+     * @return array
+     * 
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 30.01.2013
+     */
+    public function getRegisteredWidgetSets() {
+        return $this->registeredWidgetSets;
+    }
+    
+    /**
+     * Registers a WidgetSet.
+     * 
+     * @param string        $widgetSetName  The name of the widget set (used as array key)
+     * @param DataObjectSet $widgetSetItems The widget set items (usually coming from a relation)
+     * 
+     * @return void
+     * 
+     * @author Sascha Koehler <skoehler@pixeltricks.de>
+     * @since 27.05.2011
+     */
+    public function registerWidgetSet($widgetSetName, $widgetSetItems) {
+        $this->registeredWidgetSets[$widgetSetName] = $widgetSetItems;
+    }
+
+    /**
+     * Loads the widget controllers into class variables so that we can use
+     * them in method 'InsertWidgetArea'.
+     * 
+     * @return void
+     *  
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 30.01.2013
+     */
+    public function loadWidgetControllers($context = null) {
+        if (is_null($context)) {
+            $context = $this->owner;
+        } 
+
+        $registeredWidgetSets = $context->getRegisteredWidgetSets();
+
+        foreach ($registeredWidgetSets as $registeredWidgetSetName => $registeredWidgetSetItems) {
+            $controller = new ArrayList();
+
+            foreach ($registeredWidgetSetItems as $registeredWidgetSetItem) {
+                $widgets = $registeredWidgetSetItem->WidgetArea()->WidgetControllers();
+                $widgets->sort('Sort', 'ASC');
+                $controller->merge(
+                    $widgets
+                );
+            }
+
+            $context->registerWidgetSetController($registeredWidgetSetName, $controller);
+        }
+    }
+
+    /**
+     * method to register a widgetset controller for a widgetset name
+     *
+     * @param  string    $registeredWidgetSetName widgetsetname
+     * @param  ArrayList $controller              controller for this widgetset
+     *
+     * @return void
+     */
+    public function registerWidgetSetController($registeredWidgetSetName, $controller) {
+        $this->registeredWidgetSetController[$registeredWidgetSetName] = $controller;
+    }
+
+
+    /**
+     * returns the controller fro the given widgetset name
+     *
+     * @param  string $registeredWidgetSetName widgetset name
+     *
+     * @return ArrayList
+     */
+    public function getRegisteredWidgetSetController($registeredWidgetSetName) {
+        $controller = null;
+        if (array_key_exists($registeredWidgetSetName, $this->registeredWidgetSetController)) {
+            $controller = $this->registeredWidgetSetController[$registeredWidgetSetName];
+        }
+        return $controller;
+    }
+
+    /**
+     * this method renders the output for all widgetsets and returns it
+     * if the current page has no widgetset for the actual area, has a parent
+     * and the option InheritFromParent is set it will recursively render the
+     * parent widgetsets
+     * 
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 30.01.2013
+     */
+    public function getWidgetSetsFromParent($pageToLoadFrom, $identifier) {
+        $output = '';
+        $controllerName = 'WidgetSet'.$identifier;
+
+        $pageToLoadFrom->registerWidgetSet($controllerName, $pageToLoadFrom->{$controllerName}());
+        $pageToLoadFrom->loadWidgetControllers();
+        $controller = $pageToLoadFrom->getRegisteredWidgetSetController($controllerName);
+
+        if ((is_null($controller) ||
+            $controller->Count() == 0) &&
+            $pageToLoadFrom->ParentID > 0 &&
+            $pageToLoadFrom->InheritFromParent) {
+
+            return $this->getWidgetSetsFromParent($pageToLoadFrom->Parent(), $identifier);
+        } elseif (!is_null($controller) &&
+                  $controller->Count() > 0) {
+
+            foreach ($controller as $widgetSet) {
+                $output .= $widgetSet->WidgetHolder();
+            }
+        }
+        return $output;
+    }
 }
 
 /**
@@ -82,7 +249,7 @@ class WidgetSetPageExtension extends DataExtension {
  * @copyright 2013 pixeltricks GmbH
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
-class WidgetSetPageExtenstion_Controller extends DataExtension {
+class WidgetSetPageExtension_Controller extends DataExtension {
 
     /**
      * Contains the output of all WidgetSets of the parent page
@@ -114,44 +281,8 @@ class WidgetSetPageExtenstion_Controller extends DataExtension {
      * @since 04.01.2013
      */
     public function onBeforeInit() {
-        $controller = Controller::curr();
-        if ($controller == $this->owner || $controller->forceLoadOfWidgets) {
-            $this->loadWidgetControllers();
-        }
-    }
-
-    /**
-     * Returns the HTML Code as string for all widgets in the given WidgetArea.
-     *
-     * If there's no WidgetArea for this page defined we try to get the
-     * definition from its parent page.
-     *
-     * @param string $identifier The identifier of the widget area to insert
-     *
-     * @return string
-     *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
-     */
-    public function InsertWidgetArea($identifier = 'Sidebar') {
-        $output         = '';
-        $controllerName = 'WidgetSet'.$identifier.'Controllers';
-
-        if (!isset($this->$controllerName)) {
-            return $output;
-        }
-
-        foreach ($this->$controllerName as $controller) {
-            $output .= $controller->WidgetHolder();
-        }
-
-        if (empty($output)) {
-            if (isset($this->widgetOutput[$identifier])) {
-                $output = $this->widgetOutput[$identifier];
-            }
-        }
-
-        return $output;
+        $this->owner->registerWidgetSet("WidgetSetSidebar", $this->owner->WidgetSetSidebar());
+        $this->owner->registerWidgetSet("WidgetSetContent", $this->owner->WidgetSetContent());
     }
 
     /**
@@ -162,65 +293,48 @@ class WidgetSetPageExtenstion_Controller extends DataExtension {
      *
      * @return void
      *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 30.01.2013
      */
     public function saveWidgetOutput($key, $output) {
         $this->widgetOutput[$key] = $output;
     }
 
     /**
-     * Loads the widget controllers into class variables so that we can use
-     * them in method 'InsertWidgetArea'.
+     * returns the rendered widgetOutput for the given widget key
      *
-     * @return void
+     * @param  string $key widget key
      *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
+     * @return string
      */
-    protected function loadWidgetControllers() {
-        // Sidebar area widgets -----------------------------------------------
-        $controllers = new ArrayList();
-
-        foreach ($this->owner->WidgetSetSidebar() as $widgetSet) {
-            $controllers->merge(
-                $widgetSet->WidgetArea()->WidgetControllers()
-            );
+    public function getWidgetOutput($key) {
+        $widgetOutput = false;
+        if (array_key_exists($key, $this->widgetOutput)) {
+            $widgetOutput = $this->widgetOutput[$key];
         }
-
-        $this->WidgetSetSidebarControllers = $controllers;
-        $this->WidgetSetSidebarControllers->sort('Sort', 'ASC');
-
-        // Content area widgets -----------------------------------------------
-        $controllers = new ArrayList();
-
-        foreach ($this->owner->WidgetSetContent() as $widgetSet) {
-            $controllers->merge(
-                $widgetSet->WidgetArea()->WidgetControllers()
-            );
-        }
-        $this->WidgetSetContentControllers = $controllers;
-        $this->WidgetSetContentControllers->sort('Sort', 'ASC');
-        
-        $many_many = Object::get_static($this->owner->ClassName, 'many_many');
-        $ignoreRelations = array(
-            'WidgetSetSidebar',
-            'WidgetSetContent',
-        );
-        foreach ($many_many as $relationName => $relationType) {
-            if ($relationType == 'WidgetSet' &&
-                !in_array($relationName, $ignoreRelations)) {
-                $controllerName = $relationName.'Controllers';
-                $controllers    = new ArrayList();
-
-                foreach ($this->owner->{$relationName}() as $widgetSet) {
-                    $controllers->merge(
-                        $widgetSet->WidgetArea()->WidgetControllers()
-                    );
-                }
-                $this->{$controllerName} = $controllers;
-                $this->{$controllerName}->sort('Sort', 'ASC');
-            }
-        }
+        return $widgetOutput;
     }
+
+    /**
+     * Returns the HTML Code as string for all widgets in the given WidgetArea.
+     *
+     * If there's no WidgetArea for this page defined we try to get the
+     * definition from its parent page.
+     * 
+     * @param string $identifier The identifier of the widget area to insert
+     * 
+     * @return string
+     * 
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 30.01.2013
+     */
+    public function InsertWidgetArea($identifier = 'Sidebar') {
+        $output = $this->getWidgetOutput($identifier);
+        if (!$output) {
+            $output = $this->owner->getWidgetSetsFromParent($this->owner->dataRecord, $identifier);
+            $this->saveWidgetOutput($identifier, $output);
+        }
+        return $output;
+    }
+
 }

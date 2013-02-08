@@ -8,6 +8,8 @@ en:
   WidgetSetWidgets:
     WIDGETSET_CONTENT_FIELD_LABEL: "Widgets for the content area"
     WIDGETSET_SIDEBAR_FIELD_LABEL: "Widgets for the sidebar"
+    ASSIGNED_WIDGETS: "Assigned Widgets"
+    INHERIT_FROM_PARENT: "Inherit widgets from parent"
   WidgetSet:
     PLURALNAME: "Widget sets"
     SINGULARNAME: "Widget set"

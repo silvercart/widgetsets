@@ -116,9 +116,12 @@ class WidgetSet extends DataObject {
             $widgetsField = $fields->dataFieldByName('Widgets');
             $widgetsFieldConfig = $widgetsField->getConfig();
             $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
+            if (class_exists('GridFieldSortableRows')) {
+                $widgetsFieldConfig->addComponent(new GridFieldSortableRows('Sort'));
+            }
             $widgetsFieldConfig->getComponentByType('GridFieldDataColumns')->setDisplayFields(
                 array(
-                    'Title' => _t('WidgetSet.TITLE'),
+                    'Title' => $this->fieldLabel('Title'),
                     'ClassName' => _t('WidgetSetWidget.TYPE'),
                 )
             );
@@ -161,7 +164,8 @@ class WidgetSet extends DataObject {
      */
     public function fieldLabels($includerelations = true) {
         $fieldLabels = array_merge(
-                parent::fieldLabels($includerelations),             array(
+                parent::fieldLabels($includerelations),
+                array(
                     'Title' => _t('WidgetSet.TITLE')
                 )
         );
