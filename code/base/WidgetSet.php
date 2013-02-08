@@ -102,28 +102,6 @@ class WidgetSet extends DataObject {
 
         if ($this->ID > 0) {
             $fields->removeFieldFromTab('Root', 'SilvercartPages');
-            if (class_exists('SilvercartHasManyOrderField')) {
-                $fields->removeByName('WidgetAreaID');
-                $availableWidgets = array();
-
-                $classes = ClassInfo::subclassesFor('Widget');
-                array_shift($classes);
-                foreach ($classes as $class) {
-                    if ($class == 'SilvercartWidget') {
-                        continue;
-                    }
-                    $widgetClass        = singleton($class);
-                    $availableWidgets[] = array($widgetClass->ClassName, $widgetClass->Title());
-                }
-                $widgetAreaField = new SilvercartHasManyOrderField(
-                    $this->WidgetArea(),
-                    'Widgets',
-                    'WidgetArea',
-                    'Widget Konfiguration',
-                    $availableWidgets
-                );
-                $fields->addFieldToTab('Root.Main', $widgetAreaField);
-            }
             $fields->removeByName('WidgetAreaID');
             $fields->addFieldsToTab(
                 'Root.Main',
