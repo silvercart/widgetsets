@@ -86,6 +86,21 @@ class WidgetSet extends DataObject {
     public function plural_name() {
         return WidgetSetTools::plural_name_for($this);
     }
+    
+    /**
+     * exclude these fields from form scaffolding
+     *
+     * @return array the field names in a numeric array 
+     * 
+     * @author Roland Lehmann <rlehmann@pixeltricks.de>
+     * @since 10.02.2012
+     */
+    public function excludeFromScaffolding() {
+        $excludedFields = array(
+            'WidgetAreaID'
+        );
+        return $excludedFields;
+    }
 
     /**
      * Returns the GUI fields for the storeadmin.
@@ -100,14 +115,13 @@ class WidgetSet extends DataObject {
     public function getCMSFields($params = null) {
         $fields = parent::getCMSFields($params);
 
-        if ($this->ID > 0) {
+        if ($this->isInDB()) {
             $fields->removeFieldFromTab('Root', 'SilvercartPages');
-            $fields->removeByName('WidgetAreaID');
             $fields->addFieldsToTab(
                 'Root.Main',
                  $this->WidgetArea()->scaffoldFormFields(
                     array(
-                        'includeRelations'  => ($this->ID > 0),
+                        'includeRelations'  => ($this->isInDB()),
                         'tabbed'            => false,
                         'ajaxSafe'          => true,
                     )
@@ -129,8 +143,6 @@ class WidgetSet extends DataObject {
             $widgetsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
             // so we add a new one without a relation button
             $widgetsFieldConfig->addComponent(new GridFieldDeleteAction());
-        } else {
-            $fields->removeByName('WidgetAreaID');
         }
 
         return $fields;
@@ -166,7 +178,8 @@ class WidgetSet extends DataObject {
         $fieldLabels = array_merge(
                 parent::fieldLabels($includerelations),
                 array(
-                    'Title' => _t('WidgetSet.TITLE')
+                    'Title' => _t('WidgetSet.TITLE'),
+                    'Pages' => _t('WidgetSet.PAGES')
                 )
         );
 
