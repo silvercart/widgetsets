@@ -3,6 +3,7 @@ nl:
     SORT_ORDER_LABEL: "Sorteervolgorde"
     CONTENT: "Inhoud"
     TYPE: "Type"
+    CSSFIELD_LABEL: "Zusätzliche CSS Klassen (optional):"
   WidgetSetWidgets:
     WIDGETSET_CONTENT_FIELD_LABEL: "Widgets voor het content gebied"
     WIDGETSET_SIDEBAR_FIELD_LABEL: "Widgets voor de sidebar"

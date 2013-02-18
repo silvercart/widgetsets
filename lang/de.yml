@@ -5,6 +5,7 @@ de:
     TYPE: "Typ"
     FRONTTITLE: "Überschrift"
     FRONTCONTENT: "Beschreibungstext"
+    CSSFIELD_LABEL: "Zusätzliche CSS Klassen (optional):"
   WidgetSetWidgets:
     WIDGETSET_CONTENT_FIELD_LABEL: "Widgets für den Inhaltsbereich"
     WIDGETSET_SIDEBAR_FIELD_LABEL: "Widgets für die Seitenleiste"

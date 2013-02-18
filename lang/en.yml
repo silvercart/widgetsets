@@ -5,6 +5,7 @@ en:
     TYPE: "Type"
     FRONTTITLE: "Headline"
     FRONTCONTENT: "Content"
+    CSSFIELD_LABEL: "Additional CSS class (optional):"
   WidgetSetWidgets:
     WIDGETSET_CONTENT_FIELD_LABEL: "Widgets for the content area"
     WIDGETSET_SIDEBAR_FIELD_LABEL: "Widgets for the sidebar"
