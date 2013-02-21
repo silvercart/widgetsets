@@ -48,12 +48,13 @@ class WidgetSetWidgetExtension extends DataExtension {
         $descendants = $manifest->getDescendantsOf('Widget');
         $descendants = array_flip($descendants);
         unset($descendants['WidgetSetWidget']);
+        unset($descendants['SilvercartWidget']);
 
         foreach ($descendants as $descendant => $index) {
-            $descendants[$descendant] = _t($descendant . '.SINGULARNAME', $descendant);
+            $descendants[$descendant] = _t($descendant . '.TITLE', $descendant);
         }
 
-        $fields->push(new DropdownField('ClassName', _t('WidgetSetWidget.TYPE'), $descendants));
+        $fields->push(new DropdownField('Title', _t('WidgetSetWidget.TYPE'), $descendants));
     }
 
 }
