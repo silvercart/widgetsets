@@ -54,7 +54,7 @@ class WidgetSetWidgetExtension extends DataExtension {
             $descendants[$descendant] = _t($descendant . '.TITLE', $descendant);
         }
 
-        $fields->push(new DropdownField('Title', _t('WidgetSetWidget.TYPE'), $descendants));
+        $fields->push(new DropdownField('ClassName', _t('WidgetSetWidget.TYPE'), $descendants));
     }
 
 }
