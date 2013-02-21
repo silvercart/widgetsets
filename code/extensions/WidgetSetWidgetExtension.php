@@ -44,17 +44,18 @@ class WidgetSetWidgetExtension extends DataExtension {
      * @since 04.01.2013
      */
     public function updateCMSFields(FieldList $fields) {
-        $manifest    = new SS_ClassManifest(BASE_PATH);
-        $descendants = $manifest->getDescendantsOf('Widget');
-        $descendants = array_flip($descendants);
-        unset($descendants['WidgetSetWidget']);
-        unset($descendants['SilvercartWidget']);
+        if (!$this->owner->isInDB()) {
+            $manifest    = new SS_ClassManifest(BASE_PATH);
+            $descendants = $manifest->getDescendantsOf('Widget');
+            $descendants = array_flip($descendants);
+            unset($descendants['WidgetSetWidget']);
+            unset($descendants['SilvercartWidget']);
 
-        foreach ($descendants as $descendant => $index) {
-            $descendants[$descendant] = _t($descendant . '.TITLE', $descendant);
+            foreach ($descendants as $descendant => $index) {
+                $descendants[$descendant] = _t($descendant . '.TITLE', $descendant);
+            }
+            $fields->push(new DropdownField('ClassName', _t('WidgetSetWidget.TYPE'), $descendants));
         }
-
-        $fields->push(new DropdownField('ClassName', _t('WidgetSetWidget.TYPE'), $descendants));
     }
 
 }
