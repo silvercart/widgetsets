@@ -107,35 +107,48 @@ class WidgetSet extends DataObject {
 
             if ($this->isInDB()) {
                 $fields->removeFieldFromTab('Root', 'SilvercartPages');
-                $fields->addFieldsToTab(
-                    'Root.Main',
-                     $this->WidgetArea()->scaffoldFormFields(
+                $fields->addFieldToTab('Root.Main', $this->scaffoldWidgetFields());
+                
+            }                        
+            $fields->removeByName('WidgetAreaID');
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Scaffolds the relation WidgetArea into the WidgetSet CMSFields and configurates
+     * the GridField
+     * 
+     * @return FieldList
+     * 
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 21.02.2013
+     */
+    public function scaffoldWidgetFields() {
+        $fields = $this->WidgetArea()->scaffoldFormFields(
                         array(
                             'includeRelations'  => ($this->isInDB()),
                             'tabbed'            => false,
                             'ajaxSafe'          => true,
                         )
-                    )
-                 );
-                $widgetsField = $fields->dataFieldByName('Widgets');
-                $widgetsFieldConfig = $widgetsField->getConfig();
-                $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
-                if (class_exists('GridFieldSortableRows')) {
-                    $widgetsFieldConfig->addComponent(new GridFieldSortableRows('Sort'));
-                }
-                $widgetsFieldConfig->getComponentByType('GridFieldDataColumns')->setDisplayFields(
-                    array(
-                        'Title' => $this->fieldLabel('Title'),
-                        'ClassName' => _t('WidgetSetWidget.TYPE'),
-                    )
-                );
-                // this is configured with a remove relation button by default which results in unaccessible widgets
-                $widgetsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
-                // so we add a new one without a relation button
-                $widgetsFieldConfig->addComponent(new GridFieldDeleteAction());
-            }                        
-            $fields->removeByName('WidgetAreaID');
+        );
+        $widgetsField = $fields->dataFieldByName('Widgets');
+        $widgetsFieldConfig = $widgetsField->getConfig();
+        $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
+        if (class_exists('GridFieldSortableRows')) {
+            $widgetsFieldConfig->addComponent(new GridFieldSortableRows('Sort'));
         }
+        $widgetsFieldConfig->getComponentByType('GridFieldDataColumns')->setDisplayFields(
+            array(
+                'Title' => $this->fieldLabel('Title'),
+                'ClassName' => _t('WidgetSetWidget.TYPE'),
+            )
+        );
+        // this is configured with a remove relation button by default which results in unaccessible widgets
+        $widgetsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
+        // so we add a new one without a relation button
+        $widgetsFieldConfig->addComponent(new GridFieldDeleteAction());
         
         return $fields;
     }
