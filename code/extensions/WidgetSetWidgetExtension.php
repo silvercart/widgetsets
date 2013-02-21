@@ -34,6 +34,14 @@
 class WidgetSetWidgetExtension extends DataExtension {
 
     /**
+     * array which holds all classnames of widgets which should
+     * not be able to create in a widgetset
+     * 
+     * @var array
+     */
+    private static $hiddenWidgets = array();
+
+    /**
      * manipulates the cms fields
      *
      * @param FieldList $fields cms fields
@@ -48,13 +56,37 @@ class WidgetSetWidgetExtension extends DataExtension {
             $manifest    = new SS_ClassManifest(BASE_PATH);
             $descendants = $manifest->getDescendantsOf('Widget');
             $descendants = array_flip($descendants);
-            unset($descendants['WidgetSetWidget']);
-            unset($descendants['SilvercartWidget']);
+            
+            foreach (self::$hiddenWidgets as $className) {
+                unset($descendants[$className]);
+            }
 
             foreach ($descendants as $descendant => $index) {
                 $descendants[$descendant] = _t($descendant . '.TITLE', $descendant);
             }
             $fields->push(new DropdownField('ClassName', _t('WidgetSetWidget.TYPE'), $descendants));
+        }
+    }
+
+    /**
+     * register a widget class which should not be added to a widget set
+     * (for example WidgetSetWidget which is only a base class but has no specific functionality to display)
+     * 
+     * @param string $widgetClass with the classname
+     * 
+     * @return void
+     * 
+     * @author Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 21.02.2013
+     */
+    public static function preventWidgetCreationByClass($widgetClass = null) {
+        if (!is_null($widgetClass)) {
+            self::$hiddenWidgets = array_merge(
+                self::$hiddenWidgets, 
+                array(
+                    $widgetClass
+                )
+            );
         }
     }
 
