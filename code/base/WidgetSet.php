@@ -107,7 +107,7 @@ class WidgetSet extends DataObject {
 
             if ($this->isInDB()) {
                 $fields->removeFieldFromTab('Root', 'SilvercartPages');
-                $fields->addFieldToTab('Root.Main', $this->scaffoldWidgetFields());
+                $fields->addFieldToTab('Root.Main', $this->scaffoldWidgetAreaFields());
                 
             }                        
             $fields->removeByName('WidgetAreaID');
@@ -125,7 +125,7 @@ class WidgetSet extends DataObject {
      * @author Patrick Schneider <pschneider@pixeltricks.de>
      * @since 21.02.2013
      */
-    public function scaffoldWidgetFields() {
+    public function scaffoldWidgetAreaFields() {
         $fields = $this->WidgetArea()->scaffoldFormFields(
                         array(
                             'includeRelations'  => ($this->isInDB()),
@@ -133,22 +133,24 @@ class WidgetSet extends DataObject {
                             'ajaxSafe'          => true,
                         )
         );
-        $widgetsField = $fields->dataFieldByName('Widgets');
-        $widgetsFieldConfig = $widgetsField->getConfig();
-        $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
-        if (class_exists('GridFieldSortableRows')) {
-            $widgetsFieldConfig->addComponent(new GridFieldSortableRows('Sort'));
+        if ($this->isInDB()) {
+            $widgetsField = $fields->dataFieldByName('Widgets');
+            $widgetsFieldConfig = $widgetsField->getConfig();
+            $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
+            if (class_exists('GridFieldSortableRows')) {
+                $widgetsFieldConfig->addComponent(new GridFieldSortableRows('Sort'));
+            }
+            $widgetsFieldConfig->getComponentByType('GridFieldDataColumns')->setDisplayFields(
+                array(
+                    'Title' => $this->fieldLabel('Title'),
+                    'ClassName' => _t('WidgetSetWidget.TYPE'),
+                )
+            );
+            // this is configured with a remove relation button by default which results in unaccessible widgets
+            $widgetsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
+            // so we add a new one without a relation button
+            $widgetsFieldConfig->addComponent(new GridFieldDeleteAction());
         }
-        $widgetsFieldConfig->getComponentByType('GridFieldDataColumns')->setDisplayFields(
-            array(
-                'Title' => $this->fieldLabel('Title'),
-                'ClassName' => _t('WidgetSetWidget.TYPE'),
-            )
-        );
-        // this is configured with a remove relation button by default which results in unaccessible widgets
-        $widgetsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
-        // so we add a new one without a relation button
-        $widgetsFieldConfig->addComponent(new GridFieldDeleteAction());
         
         return $fields;
     }
