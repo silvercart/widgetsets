@@ -63,28 +63,6 @@ class WidgetSetWidget extends Widget {
         $this->extend('updateFieldLabels', $fieldLabels);
         return $fieldLabels;
     }
-    
-    /**
-     * Returns an array of field/relation names (db, has_one, has_many, 
-     * many_many, belongs_many_many) to exclude from form scaffolding in
-     * backend.
-     * This is a performance friendly way to exclude fields. It works only in
-     * conjunction with the SilverCart module.
-     * 
-     * @return array
-     * 
-     * @author Roland Lehmann <rlehmann@pixeltricks.de>
-     * @since 18.02.2013
-     */
-    public function excludeFromScaffolding() {
-        $excludeFromScaffolding = array(
-            'Parent',
-            'Sort',
-            'Enabled'
-        );
-        $this->extend('updateExcludeFromScaffolding', $excludeFromScaffolding);
-        return $excludeFromScaffolding;
-    }
 }
 
 /**
