@@ -57,7 +57,7 @@ class WidgetSet extends DataObject {
      * @var array
      */
     public static $belongs_many_many = array(
-        'Pages' => 'Page'
+        'Pages' => 'SiteTree'
     );
 
 
