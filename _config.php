@@ -21,8 +21,8 @@
  * @subpackage Config
  */
 
-Object::add_extension('SiteTree',           'WidgetSetPageExtension');
-Object::add_extension('ContentController',  'WidgetSetPageExtension_Controller');
-Object::add_extension('Widget',             'WidgetSetWidgetExtension');
+SiteTree::add_extension('WidgetSetPageExtension');
+ContentController::add_extension('WidgetSetPageExtension_Controller');
+Widget::add_extension('WidgetSetWidgetExtension');
 
 WidgetSetWidgetExtension::preventWidgetCreationByClass('WidgetSetWidget');
