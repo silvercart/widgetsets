@@ -121,19 +121,35 @@ class WidgetSet extends DataObject {
      * the GridField
      * 
      * @return FieldList
-     * 
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 21.02.2013
+     *
+     * @author Sebastian Diel <sdiel@pixeltricks.de>,
+     *         Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 05.03.2014
      */
     public function scaffoldWidgetAreaFields() {
-        $fields = $this->WidgetArea()->scaffoldFormFields(
+        return self::scaffold_widget_area_fields_for($this);
+    }
+    
+    /**
+     * Scaffolds the relation WidgetArea into the context CMSFields and configurates
+     * the GridField.
+     * 
+     * @param DataObject $context Context to get Widget admin for
+     * 
+     * @return void
+     *
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 05.03.2014
+     */
+    public static function scaffold_widget_area_fields_for($context) {
+        $fields = $context->WidgetArea()->scaffoldFormFields(
                         array(
-                            'includeRelations'  => ($this->isInDB()),
+                            'includeRelations'  => ($context->isInDB()),
                             'tabbed'            => false,
                             'ajaxSafe'          => true,
                         )
         );
-        if ($this->isInDB()) {
+        if ($context->isInDB()) {
             $widgetsField = $fields->dataFieldByName('Widgets');
             $widgetsFieldConfig = $widgetsField->getConfig();
             $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
@@ -142,7 +158,7 @@ class WidgetSet extends DataObject {
             }
             $widgetsFieldConfig->getComponentByType('GridFieldDataColumns')->setDisplayFields(
                 array(
-                    'Title' => $this->fieldLabel('Title'),
+                    'Title'     => $context->fieldLabel('Title'),
                     'ClassName' => _t('WidgetSetWidget.TYPE'),
                 )
             );
