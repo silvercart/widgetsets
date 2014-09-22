@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2013 pixeltricks GmbH
+ * Copyright 2014 pixeltricks GmbH
  *
  * This file is part of the Widgetsets module.
  *
@@ -26,10 +26,11 @@
  *
  * @package Widgetsets
  * @subpackage Base
- * @author Patrick Schneider <pschneider@pixeltricks.de>
- * @since 04.01.2013
+ * @author Sebastian Diel <sdiel@pixeltricks.de>
+ *         Patrick Schneider <pschneider@pixeltricks.de>
+ * @since 18.09.2014
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
- * @copyright 2013 pixeltricks GmbH
+ * @copyright 2014 pixeltricks GmbH
  */
 class WidgetSetWidget extends Widget {
 
@@ -38,7 +39,7 @@ class WidgetSetWidget extends Widget {
      *
      * @var array
      */
-    public static $db = array(
+    private static $db = array(
         'ExtraCssClasses'   => 'VarChar(255)',
     );
     
