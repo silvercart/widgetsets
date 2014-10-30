@@ -91,9 +91,6 @@ class WidgetSet extends DataObject {
      * Returns the GUI fields for the storeadmin.
      *
      * @return FieldList
-     *
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 20.02.2013
      */
     public function getCMSFields() {
         $result = $this->extend('overrideGetCMSFields');
@@ -103,11 +100,11 @@ class WidgetSet extends DataObject {
             $result[0] instanceof FieldList) {
             $fields = $result[0];
         } else {
-            $fields = parent::getCMSFields($params);
+            $fields = parent::getCMSFields();
 
             if ($this->isInDB()) {
                 $fields->removeFieldFromTab('Root', 'SilvercartPages');
-                $fields->addFieldToTab('Root.Main', $this->scaffoldWidgetAreaFields());
+                $fields->addFieldsToTab('Root.Main', $this->scaffoldWidgetAreaFields());
                 
             }                        
             $fields->removeByName('WidgetAreaID');
