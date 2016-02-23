@@ -61,7 +61,7 @@ class WidgetSetAdmin extends ModelAdmin {
      *
      * @var string
      */
-    private static $menu_icon = 'silvercart/css/images/glyphicons_halflings.png';
+    private static $menu_icon = 'silvercart/img/glyphicons-halflings.png';
 
     /**
      * We don't want the import form here.
