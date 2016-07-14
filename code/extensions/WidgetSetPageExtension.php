@@ -150,6 +150,8 @@ class WidgetSetPageExtension extends DataExtension {
      * Loads the widget controllers into class variables so that we can use
      * them in method 'InsertWidgetArea'.
      * 
+     * @param Page $context The owner of this extension, i.e. the extended object
+     * 
      * @return void
      *  
      * @author Patrick Schneider <pschneider@pixeltricks.de>
@@ -210,6 +212,9 @@ class WidgetSetPageExtension extends DataExtension {
      * if the current page has no widgetset for the actual area, has a parent
      * and the option InheritFromParent is set it will recursively render the
      * parent widgetsets
+     *
+     * @param Page   $pageToLoadFrom Parent page to load the widgets from
+     * @param string $identifier     Identifier of the widget set to load    
      * 
      * @author Patrick Schneider <pschneider@pixeltricks.de>
      * @since 30.01.2013
