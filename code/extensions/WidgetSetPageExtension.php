@@ -134,8 +134,8 @@ class WidgetSetPageExtension extends DataExtension {
     /**
      * Registers a WidgetSet.
      * 
-     * @param string        $widgetSetName  The name of the widget set (used as array key)
-     * @param DataObjectSet $widgetSetItems The widget set items (usually coming from a relation)
+     * @param string  $widgetSetName  The name of the widget set (used as array key)
+     * @param SS_List $widgetSetItems The widget set items (usually coming from a relation)
      * 
      * @return void
      * 
@@ -266,14 +266,14 @@ class WidgetSetPageExtension_Controller extends DataExtension {
     /**
      * Contains the controllers for the sidebar widgets
      *
-     * @var DataObjectSet
+     * @var SS_List
      */
     protected $WidgetSetSidebarControllers;
 
     /**
      * Contains the controllers for the content area widget
      *
-     * @var DataObjectSet
+     * @var SS_List
      */
     protected $WidgetSetContentControllers;
 
