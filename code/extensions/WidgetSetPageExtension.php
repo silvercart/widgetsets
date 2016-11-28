@@ -236,9 +236,18 @@ class WidgetSetPageExtension extends DataExtension {
         } elseif (!is_null($controller) &&
                   $controller->Count() > 0) {
 
-            foreach ($controller as $widgetSet) {
-                $output .= $widgetSet->WidgetHolder();
+            $widgetAreaID = 0;
+            foreach ($controller as $widget) {
+                if ($widgetAreaID != $widget->ParentID) {
+                    if ($widgetAreaID > 0) {
+                        $output .= '</div>';
+                    }
+                    $output .= '<div>';
+                    $widgetAreaID = $widget->ParentID;
+                }
+                $output .= $widget->WidgetHolder();
             }
+            $output .= '</div>';
         }
         return $output;
     }
