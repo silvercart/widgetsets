@@ -1,44 +1,36 @@
 <?php
-/**
- * Copyright 2013 pixeltricks GmbH
- *
- * This file is part of the Widgetsets module.
- *
- * Widgetsets module is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * It is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this package. If not, see <http://www.gnu.org/licenses/>.
- *
- * @package Widgetsets
- * @subpackage Extensions
- */
+
+namespace WidgetSets\Extensions;
+
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\FieldGroup;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\SS_List;
+use WidgetSets\Model\WidgetSet;
 
 /**
- * Page extension to add {@link WidgetSet} to a page
+ * SiteTree extension to add {@link WidgetSet} to a page.
  *
- * @package Widgetsets
+ * @package WidgetSets
  * @subpackage Extensions
- * @author Patrick Schneider <pschneider@pixeltricks.de>
- * @since 04.01.2013
- * @copyright 2013 pixeltricks GmbH
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
+ * @author Sebastian Diel <sdiel@pixeltricks.de>
+ * @since 28.09.2017
+ * @copyright 2017 pixeltricks GmbH
+ * @license see license file in modules root directory
  */
-class WidgetSetPageExtension extends DataExtension {
+class WidgetSetSiteTreeExtension extends DataExtension {
 
     /**
      * db fields
      * 
      * @var array
      */
-    public static $db = array(
+    private static $db = array(
         'InheritFromParent' => 'Boolean(1)',
     );
 
@@ -47,9 +39,9 @@ class WidgetSetPageExtension extends DataExtension {
      *
      * @var array
      */
-    public static $many_many = array(
-        'WidgetSetSidebar' => 'WidgetSet',
-        'WidgetSetContent' => 'WidgetSet',
+    private static $many_many = array(
+        'WidgetSetSidebar' => WidgetSet::class,
+        'WidgetSetContent' => WidgetSet::class,
     );
 
     /**
@@ -111,10 +103,10 @@ class WidgetSetPageExtension extends DataExtension {
         $labels = array_merge(
                 $labels,
                 array(
-                    'WidgetSetContentLabel' => _t('WidgetSetWidgets.WIDGETSET_CONTENT_FIELD_LABEL'),
-                    'WidgetSetSidebarLabel' => _t('WidgetSetWidgets.WIDGETSET_SIDEBAR_FIELD_LABEL'),
-                    'AssignedWidgets'       => _t('WidgetSetWidgets.ASSIGNED_WIDGETS'),
-                    'InheritFromParent'     => _t('WidgetSetWidgets.INHERIT_FROM_PARENT'),
+                    'WidgetSetContentLabel' => _t('WidgetSets\Model\WidgetSetWidget.WIDGETSET_CONTENT_FIELD_LABEL'),
+                    'WidgetSetSidebarLabel' => _t('WidgetSets\Model\WidgetSetWidget.WIDGETSET_SIDEBAR_FIELD_LABEL'),
+                    'AssignedWidgets'       => _t('WidgetSets\Model\WidgetSetWidget.ASSIGNED_WIDGETS'),
+                    'InheritFromParent'     => _t('WidgetSets\Model\WidgetSetWidget.INHERIT_FROM_PARENT'),
                 )
         );
     }
@@ -123,9 +115,6 @@ class WidgetSetPageExtension extends DataExtension {
      * Returns all registered widget sets as associative array.
      * 
      * @return array
-     * 
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 30.01.2013
      */
     public function getRegisteredWidgetSets() {
         return $this->registeredWidgetSets;
@@ -216,8 +205,7 @@ class WidgetSetPageExtension extends DataExtension {
      * @param Page   $pageToLoadFrom Parent page to load the widgets from
      * @param string $identifier     Identifier of the widget set to load    
      * 
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 30.01.2013
+     * @return string
      */
     public function getWidgetSetsFromParent($pageToLoadFrom, $identifier) {
         $output = '';
@@ -251,104 +239,4 @@ class WidgetSetPageExtension extends DataExtension {
         }
         return $output;
     }
-}
-
-/**
- * Page_Controller extension
- *
- * @package Widgetsets
- * @subpackage Extensions
- * @author Patrick Schneider <pschneider@pixeltricks.de>
- * @since 04.01.2013
- * @copyright 2013 pixeltricks GmbH
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
- */
-class WidgetSetPageExtension_Controller extends DataExtension {
-
-    /**
-     * Contains the output of all WidgetSets of the parent page
-     *
-     * @var array
-     */
-    protected $widgetOutput = array();
-
-    /**
-     * Contains the controllers for the sidebar widgets
-     *
-     * @var SS_List
-     */
-    protected $WidgetSetSidebarControllers;
-
-    /**
-     * Contains the controllers for the content area widget
-     *
-     * @var SS_List
-     */
-    protected $WidgetSetContentControllers;
-
-    /**
-     * load widget controller
-     *
-     * @return void
-     *
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 04.01.2013
-     */
-    public function onBeforeInit() {
-        $this->owner->registerWidgetSet("WidgetSetSidebar", $this->owner->WidgetSetSidebar());
-        $this->owner->registerWidgetSet("WidgetSetContent", $this->owner->WidgetSetContent());
-    }
-
-    /**
-     * Adds a widget output to the class variable "$this->widgetOutput".
-     *
-     * @param string $key    The key for the output
-     * @param string $output The actual output of the widget
-     *
-     * @return void
-     *
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 30.01.2013
-     */
-    public function saveWidgetOutput($key, $output) {
-        $this->widgetOutput[$key] = $output;
-    }
-
-    /**
-     * returns the rendered widgetOutput for the given widget key
-     *
-     * @param  string $key widget key
-     *
-     * @return string
-     */
-    public function getWidgetOutput($key) {
-        $widgetOutput = false;
-        if (array_key_exists($key, $this->widgetOutput)) {
-            $widgetOutput = $this->widgetOutput[$key];
-        }
-        return $widgetOutput;
-    }
-
-    /**
-     * Returns the HTML Code as string for all widgets in the given WidgetArea.
-     *
-     * If there's no WidgetArea for this page defined we try to get the
-     * definition from its parent page.
-     * 
-     * @param string $identifier The identifier of the widget area to insert
-     * 
-     * @return string
-     * 
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 30.01.2013
-     */
-    public function InsertWidgetArea($identifier = 'Sidebar') {
-        $output = $this->getWidgetOutput($identifier);
-        if (!$output) {
-            $output = $this->owner->getWidgetSetsFromParent($this->owner->dataRecord, $identifier);
-            $this->saveWidgetOutput($identifier, $output);
-        }
-        return $output;
-    }
-
 }

@@ -1,35 +1,19 @@
 <?php
-/**
- * Copyright 2013 pixeltricks GmbH
- *
- * This file is part of the Widgetsets module.
- *
- * Widgetsets module is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * It is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this package. If not, see <http://www.gnu.org/licenses/>.
- *
- * @package Widgetsets
- * @subpackage ModelAdmins
- */
+
+namespace WidgetSets\Admin\Controllers;
+
+use SilverStripe\Admin\ModelAdmin;
+use WidgetSets\Model\WidgetSet;
 
 /**
  * ModelAdmin for WidgetSets.
  *
- * @package Widgetsets
- * @subpackage ModelAdmins
- * @author Patrick Schneider <pschneider@pixeltricks.de>
- * @copyright 2013 pixeltricks GmbH
- * @since 04.01.2013
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
+ * @package WidgetSets
+ * @subpackage Admin_Controllers
+ * @author Sebastian Diel <sdiel@pixeltricks.de>
+ * @since 28.09.2017
+ * @copyright 2017 pixeltricks GmbH
+ * @license see license file in modules root directory
  */
 class WidgetSetAdmin extends ModelAdmin {
 
@@ -53,7 +37,7 @@ class WidgetSetAdmin extends ModelAdmin {
      * @var array
      */
     public static $managed_models = array(
-        'WidgetSet'
+        WidgetSet::class,
     );
 
     /**
@@ -93,7 +77,7 @@ class WidgetSetAdmin extends ModelAdmin {
      * @since 11.01.2013
      */
     public function SectionTitle() {
-        return _t('WidgetSet.PLURALNAME');
+        return _t('WidgetSets\Model\WidgetSet.PLURALNAME');
     }
 }
 

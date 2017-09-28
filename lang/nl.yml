@@ -1,16 +1,15 @@
 nl:
-  WidgetSetWidget:
+  WidgetSets\Model\WidgetSetWidget:
     SORT_ORDER_LABEL: "Sorteervolgorde"
     CONTENT: "Inhoud"
-    TYPE: "Type"
-    CSSFIELD_LABEL: "Zusätzliche CSS Klassen (optional):"
-  WidgetSetWidgets:
+    Type: "Type"
+    CssFieldLabel: "Zusätzliche CSS Klassen (optional):"
     WIDGETSET_CONTENT_FIELD_LABEL: "Widgets voor het content gebied"
     WIDGETSET_SIDEBAR_FIELD_LABEL: "Widgets voor de sidebar"
-  WidgetSet:
+  WidgetSets\Model\WidgetSet:
     PLURALNAME: "Widget sets"
     SINGULARNAME: "Widget set"
     PAGES: "toegekende pagina's"
     TITLE: "Title"
-  WidgetSetAdmin:
+  WidgetSets\Admin\Controllers\WidgetSetAdmin:
     MENUTITLE: "Widget Sets" 

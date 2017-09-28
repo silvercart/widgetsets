@@ -1,0 +1,12 @@
+---
+Name: widgetset-extensions
+---
+SilverStripe\CMS\Controllers\ContentController:
+  extensions:
+    - WidgetSets\Extensions\WidgetSetContentControllerExtension
+SilverStripe\CMS\Model\SiteTree:
+  extensions:
+    - WidgetSets\Extensions\WidgetSetSiteTreeExtension
+SilverStripe\Widgets\Model\Widget:
+  extensions:
+    - WidgetSets\Extensions\WidgetSetWidgetExtension

@@ -1,35 +1,23 @@
 <?php
-/**
- * Copyright 2013 pixeltricks GmbH
- *
- * This file is part of the Widgetsets module.
- *
- * Widgetsets module is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * It is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this package. If not, see <http://www.gnu.org/licenses/>.
- *
- * @package Widgetsets
- * @subpackage Base
- */
+
+namespace WidgetSets\Model;
+
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Widgets\Model\WidgetArea;
+use WidgetSets\Dev\WidgetSetTools;
 
 /**
  * Contains an arbitrary number of widgets.
  *
- * @package Widgetsets
- * @subpackage Base
- * @author Sascha Koehler <skoehler@pixeltricks.de>, Patrick Schneider <pchneider@pixeltricks.de>
- * @since 04.01.2013
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
- * @copyright 2013 pixeltricks GmbH
+ * @package WidgetSets
+ * @subpackage Model
+ * @author Sebastian Diel <sdiel@pixeltricks.de>
+ * @since 28.09.2017
+ * @copyright 2017 pixeltricks GmbH
+ * @license see license file in modules root directory
  */
 class WidgetSet extends DataObject {
 
@@ -38,7 +26,7 @@ class WidgetSet extends DataObject {
      *
      * @var array
      */
-    public static $db = array(
+    private static $db = array(
         'Title' => 'VarChar(255)'
     );
 
@@ -47,8 +35,8 @@ class WidgetSet extends DataObject {
      *
      * @var array
      */
-    public static $has_one = array(
-        'WidgetArea' => 'WidgetArea'
+    private static $has_one = array(
+        'WidgetArea' => WidgetArea::class,
     );
 
     /**
@@ -56,9 +44,16 @@ class WidgetSet extends DataObject {
      *
      * @var array
      */
-    public static $belongs_many_many = array(
-        'Pages' => 'SiteTree'
+    private static $belongs_many_many = array(
+        'Pages' => SiteTree::class,
     );
+
+    /**
+     * DB table name
+     *
+     * @var string
+     */
+    private static $table_name = 'WidgetSet';
 
 
     /**
@@ -103,7 +98,6 @@ class WidgetSet extends DataObject {
             $fields = parent::getCMSFields();
 
             if ($this->isInDB()) {
-                $fields->removeFieldFromTab('Root', 'SilvercartPages');
                 $fields->addFieldsToTab('Root.Main', $this->scaffoldWidgetAreaFields());
                 
             }                        
@@ -153,14 +147,14 @@ class WidgetSet extends DataObject {
             if (class_exists('GridFieldSortableRows')) {
                 $widgetsFieldConfig->addComponent(new GridFieldSortableRows('Sort'));
             }
-            $widgetsFieldConfig->getComponentByType('GridFieldDataColumns')->setDisplayFields(
+            $widgetsFieldConfig->getComponentByType(GridFieldDataColumns::class)->setDisplayFields(
                 array(
                     'Title'     => $context->fieldLabel('Title'),
-                    'ClassName' => _t('WidgetSetWidget.TYPE'),
+                    'ClassName' => _t('WidgetSets\Model\WidgetSetWidget.TYPE'),
                 )
             );
             // this is configured with a remove relation button by default which results in unaccessible widgets
-            $widgetsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
+            $widgetsFieldConfig->removeComponentsByType(GridFieldDeleteAction::class);
             // so we add a new one without a relation button
             $widgetsFieldConfig->addComponent(new GridFieldDeleteAction());
         }
@@ -198,8 +192,8 @@ class WidgetSet extends DataObject {
         $fieldLabels = array_merge(
                 parent::fieldLabels($includerelations),
                 array(
-                    'Title' => _t('WidgetSet.TITLE'),
-                    'Pages' => _t('WidgetSet.PAGES')
+                    'Title' => _t('WidgetSets\Model\WidgetSet.TITLE'),
+                    'Pages' => _t('WidgetSets\Model\WidgetSet.PAGES')
                 )
         );
 
