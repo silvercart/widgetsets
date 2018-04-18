@@ -12,6 +12,7 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\SS_List;
 use WidgetSets\Model\WidgetSet;
+use WidgetSets\Model\WidgetSetWidget;
 
 /**
  * SiteTree extension to add {@link WidgetSet} to a page.
@@ -103,10 +104,10 @@ class WidgetSetSiteTreeExtension extends DataExtension {
         $labels = array_merge(
                 $labels,
                 array(
-                    'WidgetSetContentLabel' => _t('WidgetSets\Model\WidgetSetWidget.WIDGETSET_CONTENT_FIELD_LABEL'),
-                    'WidgetSetSidebarLabel' => _t('WidgetSets\Model\WidgetSetWidget.WIDGETSET_SIDEBAR_FIELD_LABEL'),
-                    'AssignedWidgets'       => _t('WidgetSets\Model\WidgetSetWidget.ASSIGNED_WIDGETS'),
-                    'InheritFromParent'     => _t('WidgetSets\Model\WidgetSetWidget.INHERIT_FROM_PARENT'),
+                    'WidgetSetContentLabel' => WidgetSetWidget::singleton()->fieldLabel('WidgetSetContentLabel'),
+                    'WidgetSetSidebarLabel' => WidgetSetWidget::singleton()->fieldLabel('WidgetSetSidebarLabel'),
+                    'AssignedWidgets'       => WidgetSetWidget::singleton()->fieldLabel('AssignedWidgets'),
+                    'InheritFromParent'     => WidgetSetWidget::singleton()->fieldLabel('InheritFromParent'),
                 )
         );
     }
@@ -237,6 +238,8 @@ class WidgetSetSiteTreeExtension extends DataExtension {
             }
             $output .= '</div>';
         }
-        return $output;
+        $tmp = new \SilverStripe\ORM\FieldType\DBHTMLText();
+        $tmp->setValue($output);
+        return $tmp;
     }
 }

@@ -22,21 +22,21 @@ class WidgetSetAdmin extends ModelAdmin {
      *
      * @var string
      */
-    public static $url_segment = 'widget-sets';
+    private static $url_segment = 'widget-sets';
 
     /**
      * The menu title
      *
      * @var string
      */
-    public static $menu_title = 'Widget Sets';
+    private static $menu_title = 'Widget Sets';
 
     /**
      * Managed models
      *
      * @var array
      */
-    public static $managed_models = array(
+    private static $managed_models = array(
         WidgetSet::class,
     );
 
@@ -77,7 +77,7 @@ class WidgetSetAdmin extends ModelAdmin {
      * @since 11.01.2013
      */
     public function SectionTitle() {
-        return _t('WidgetSets\Model\WidgetSet.PLURALNAME');
+        return _t(WidgetSet::class . '.PLURALNAME', 'Widget Sets');
     }
 }
 

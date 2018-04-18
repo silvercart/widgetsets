@@ -8,6 +8,7 @@ use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Widgets\Model\WidgetArea;
 use WidgetSets\Dev\WidgetSetTools;
+use WidgetSets\Model\WidgetSetWidget;
 
 /**
  * Contains an arbitrary number of widgets.
@@ -27,7 +28,7 @@ class WidgetSet extends DataObject {
      * @var array
      */
     private static $db = array(
-        'Title' => 'VarChar(255)'
+        'Title' => 'Varchar(255)'
     );
 
     /**
@@ -150,7 +151,7 @@ class WidgetSet extends DataObject {
             $widgetsFieldConfig->getComponentByType(GridFieldDataColumns::class)->setDisplayFields(
                 array(
                     'Title'     => $context->fieldLabel('Title'),
-                    'ClassName' => _t('WidgetSets\Model\WidgetSetWidget.TYPE'),
+                    'ClassName' => _t(WidgetSetWidget::class . '.TYPE', 'Type'),
                 )
             );
             // this is configured with a remove relation button by default which results in unaccessible widgets
@@ -192,8 +193,8 @@ class WidgetSet extends DataObject {
         $fieldLabels = array_merge(
                 parent::fieldLabels($includerelations),
                 array(
-                    'Title' => _t('WidgetSets\Model\WidgetSet.TITLE'),
-                    'Pages' => _t('WidgetSets\Model\WidgetSet.PAGES')
+                    'Title' => _t(WidgetSet::class . '.TITLE', 'Title'),
+                    'Pages' => _t(WidgetSet::class . '.PAGES', 'assigned pages'),
                 )
         );
 

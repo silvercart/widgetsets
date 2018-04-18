@@ -2,10 +2,11 @@
 
 namespace WidgetSets\Extensions;
 
-use SilverStripe\Core\Manifest\ClassManifest;
+use SilverStripe\Core\ClassInfo;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\Widgets\Model\Widget;
 use WidgetSets\Model\WidgetSetWidget;
 
 /**
@@ -27,6 +28,7 @@ class WidgetSetWidgetExtension extends DataExtension {
      * @var array
      */
     private static $hidden_widgets = array(
+        Widget::class,
         WidgetSetWidget::class,
     );
 
@@ -37,22 +39,26 @@ class WidgetSetWidgetExtension extends DataExtension {
      *
      * @return void
      *
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 04.01.2013
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 15.11.2017
      */
     public function updateCMSFields(FieldList $fields) {
         if (!$this->owner->isInDB()) {
-            $manifest    = new ClassManifest(BASE_PATH);
-            $descendants = array_flip($manifest->getDescendantsOf('Widget'));
+            $descendants = ClassInfo::subclassesFor(Widget::class);
             
             foreach (self::$hidden_widgets as $className) {
-                unset($descendants[$className]);
+                $key = strtolower($className);
+                if (array_key_exists($key, $descendants)) {
+                    unset($descendants[$key]);
+                }
             }
 
-            foreach ($descendants as $descendant => $index) {
-                $descendants[$descendant] = _t($descendant . '.TITLE', $descendant);
+            foreach ($descendants as $descendant => $className) {
+                unset($descendants[$descendant]);
+                $descendants[$className] = _t($className . '.TITLE', $className);
             }
-            $fields->push(new DropdownField('ClassName', _t('WidgetSets\Model\WidgetSetWidget.Type'), $descendants));
+            asort($descendants);
+            $fields->push(new DropdownField('ClassName', _t(WidgetSetWidget::class . '.Type', 'Type'), $descendants));
         }
     }
 

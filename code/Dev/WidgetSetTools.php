@@ -2,6 +2,7 @@
 
 namespace WidgetSets\Dev;
 
+use ReflectionClass;
 use SilverStripe\ORM\DataObject;
 
 /**
@@ -28,11 +29,9 @@ class WidgetSetTools {
      * @since 04.01.2013
      */
     public static function singular_name_for($dataObject) {
-        if (_t($dataObject->ClassName . '.SINGULARNAME')) {
-            return _t($dataObject->ClassName . '.SINGULARNAME');
-        } else {
-            return ucwords(trim(strtolower(preg_replace('/_?([A-Z])/', ' $1', $dataObject->class))));;
-        }
+        $reflection = new ReflectionClass($dataObject->ClassName);
+        $default    = ucwords(trim(strtolower(preg_replace('/_?([A-Z])/', ' $1', $reflection->getShortName()))));
+        return _t($dataObject->ClassName . '.SINGULARNAME', $default);
     }
 
 
@@ -48,16 +47,13 @@ class WidgetSetTools {
      * @since 04.01.2013
      */
     public static function plural_name_for($dataObject) {
-        if (_t($dataObject->ClassName . '.PLURALNAME')) {
-            return _t($dataObject->ClassName . '.PLURALNAME');
-        } else {
-            $plural_name = self::singular_name_for($dataObject);
-            if (substr($plural_name,-1) == 'e') {
-                $plural_name = substr($plural_name,0,-1);
-            } elseif (substr($plural_name,-1) == 'y') {
-                $plural_name = substr($plural_name,0,-1) . 'ie';
-            }
-            return ucfirst($plural_name . 's');
+        $plural_name = self::singular_name_for($dataObject);
+        if (substr($plural_name,-1) == 'e') {
+            $plural_name = substr($plural_name,0,-1);
+        } elseif (substr($plural_name,-1) == 'y') {
+            $plural_name = substr($plural_name,0,-1) . 'ie';
         }
+        $default = ucfirst($plural_name . 's');
+        return _t($dataObject->ClassName . '.PLURALNAME', $default);
     }
 }

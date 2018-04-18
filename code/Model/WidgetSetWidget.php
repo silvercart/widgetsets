@@ -22,7 +22,7 @@ class WidgetSetWidget extends Widget {
      * @var array
      */
     private static $db = array(
-        'ExtraCssClasses' => 'VarChar(255)',
+        'ExtraCssClasses' => 'Varchar(255)',
     );
 
     /**
@@ -47,7 +47,13 @@ class WidgetSetWidget extends Widget {
         $fieldLabels = array_merge(
                 parent::fieldLabels($includerelations),
                 array(
-                    'ExtraCssClasses' => _t('WidgetSets\Model\WidgetSetWidget.CssFieldLabel')
+                    'ExtraCssClasses'       => _t(WidgetSetWidget::class . '.CssFieldLabel', 'Additional CSS class (optional):'),
+                    'FrontTitle'            => _t(WidgetSetWidget::class . '.FRONTTITLE', 'Headline'),
+                    'FrontContent'          => _t(WidgetSetWidget::class . '.FRONTCONTENT', 'Content'),
+                    'WidgetSetContentLabel' => _t(WidgetSetWidget::class . '.WIDGETSET_CONTENT_FIELD_LABEL', 'Widgets for the content area'),
+                    'WidgetSetSidebarLabel' => _t(WidgetSetWidget::class . '.WIDGETSET_SIDEBAR_FIELD_LABEL', 'Widgets for the sidebar'),
+                    'AssignedWidgets'       => _t(WidgetSetWidget::class . '.ASSIGNED_WIDGETS', 'Assigned Widgets'),
+                    'InheritFromParent'     => _t(WidgetSetWidget::class . '.INHERIT_FROM_PARENT', 'Inherit widgets from parent'),
                 )
         );
 

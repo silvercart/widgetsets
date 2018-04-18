@@ -6,12 +6,10 @@ Combine widgets to powerful widgetsets and re-use them comfortably to create a s
 * Ramon Kupper <rkupper@pixeltricks.de>
 
 ## Requirements
-* SilverStripe 3.1
+* SilverStripe 4.0
 * Translatable
-* CustomHtmlForm
 * Siteconfig
 * Widgets
-* WidgetSets
 
 ## Summary
 SilverCart is an Open Source E-Commerce module for the CMS Framework SilverStripe.
