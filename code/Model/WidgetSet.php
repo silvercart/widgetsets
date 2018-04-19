@@ -150,8 +150,8 @@ class WidgetSet extends DataObject {
             }
             $widgetsFieldConfig->getComponentByType(GridFieldDataColumns::class)->setDisplayFields(
                 array(
-                    'Title'     => $context->fieldLabel('Title'),
-                    'ClassName' => _t(WidgetSetWidget::class . '.TYPE', 'Type'),
+                    'Title'    => $context->fieldLabel('Title'),
+                    'CMSTitle' => _t(WidgetSetWidget::class . '.Type', 'Type'),
                 )
             );
             // this is configured with a remove relation button by default which results in unaccessible widgets

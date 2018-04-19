@@ -60,4 +60,49 @@ class WidgetSetWidget extends Widget {
         $this->extend('updateFieldLabels', $fieldLabels);
         return $fieldLabels;
     }
+    
+    /**
+     * Returns an array of field/relation names (db, has_one, has_many, 
+     * many_many, belongs_many_many) to exclude from form scaffolding in
+     * backend.
+     * 
+     * @return array
+     * 
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 19.04.2018
+     */
+    public function excludeFromScaffolding() {
+        $excludeFromScaffolding = [
+            'Sort',
+            'Parent',
+        ];
+        $this->extend('updateExcludeFromScaffolding', $excludeFromScaffolding);
+        return $excludeFromScaffolding;
+    }
+    
+    /**
+     * Returns the title of this widget for display in the WidgetArea GUI.
+     * 
+     * @return string
+     * 
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 27.03.2012
+     */
+    public function CMSTitle() {
+        return _t(static::class . '.CMSTITLE', 'Widget');
+    }
+    
+    /**
+     * Returns the description of what this template does for display in the
+     * WidgetArea GUI.
+     * 
+     * @return string
+     * 
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 27.03.2012
+     */
+    public function Description() {
+        return _t(static::class . '.DESCRIPTION', 'Widget');
+    }
+    
 }
