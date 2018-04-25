@@ -41,13 +41,6 @@ class WidgetSetAdmin extends ModelAdmin {
     );
 
     /**
-     * Menu icon
-     *
-     * @var string
-     */
-    private static $menu_icon = 'silvercart/img/glyphicons-halflings.png';
-
-    /**
      * We don't want the import form here.
      *
      * @var boolean
