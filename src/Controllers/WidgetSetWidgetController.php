@@ -2,7 +2,7 @@
 
 namespace WidgetSets\Controllers;
 
-use SilverStripe\Widgets\Controllers\WidgetController;
+use SilverStripe\Widgets\Model\WidgetController;
 
 /**
  * WidgetSetWidget Controller class.

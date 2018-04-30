@@ -3,6 +3,7 @@
 namespace WidgetSets\Model;
 
 use SilverStripe\Widgets\Model\Widget;
+use SilverStripe\Versioned\Versioned;
 
 /**
  * Provides some basic functionality for all Widgetset widgets.
@@ -103,6 +104,21 @@ class WidgetSetWidget extends Widget {
      */
     public function Description() {
         return _t(static::class . '.DESCRIPTION', 'Widget');
+    }
+    
+    /**
+     * Automatically publishes the WidgetArea (Parent) after writing.
+     * 
+     * @return void
+     *
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 30.04.2018
+     */
+    protected function onAfterWrite() {
+        parent::onAfterWrite();
+        if ($this->Parent()->exists()) {
+            $this->Parent()->copyVersionToStage(Versioned::DRAFT, Versioned::LIVE);
+        }
     }
     
 }
