@@ -1,0 +1,6 @@
+---
+Name: widgetset-url-handler
+---
+SilverStripe\CMS\Controllers\ContentController:
+  url_handlers:
+    'widgetset/$ID!': 'handleWidgetSet'

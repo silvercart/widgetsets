@@ -2,6 +2,8 @@
 
 namespace WidgetSets\Controllers;
 
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\Director;
 use SilverStripe\Widgets\Model\WidgetController;
 
 /**
@@ -76,5 +78,33 @@ class WidgetSetWidgetController extends WidgetController {
         if ($reflectionClass->hasMethod('filter')) {
             self::$registeredFilterPlugins[] = new $plugin();
         }
+    }
+
+    /**
+     * Overwrites the default widget link to add a proper handling for widget
+     * set URLs.
+     * 
+     * @param string $action Action
+     * 
+     * @return string
+     * 
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 07.06.2018
+     */
+    public function Link($action = null) {
+        $id      = ($this->widget) ? $this->widget->ID : null;
+        $segment = Controller::join_links('widgetset', $id, $action);
+        $page    = Director::get_current_page();
+        if ($page &&
+            !($page instanceof WidgetController)) {
+            return $page->Link($segment);
+        }
+
+        $controller = $this->getParentController();
+        if ($controller instanceof Controller) {
+            return $controller->Link($segment);
+        }
+
+        return $segment;
     }
 }
