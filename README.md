@@ -13,7 +13,7 @@ Combine widgets to powerful widgetsets and re-use them comfortably to create a s
 Installation can be done either by composer or by manually downloading the release from Github.
 
 ## Via composer
-```composer require silvercart/widgetsets 4.0.2```
+```composer require silvercart/widgetsets 4.0.4```
 
 ## Summary
 WidgetSets is an Open Source E-Commerce module for the CMS Framework SilverStripe.
