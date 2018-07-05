@@ -228,15 +228,10 @@ class WidgetSetSiteTreeExtension extends DataExtension {
             $widgetAreaID = 0;
             foreach ($controller as $widget) {
                 if ($widgetAreaID != $widget->ParentID) {
-                    if ($widgetAreaID > 0) {
-                        $output .= '</div>';
-                    }
-                    $output .= '<div>';
                     $widgetAreaID = $widget->ParentID;
                 }
                 $output .= $widget->WidgetHolder();
             }
-            $output .= '</div>';
         }
         $tmp = new \SilverStripe\ORM\FieldType\DBHTMLText();
         $tmp->setValue($output);
