@@ -10,3 +10,6 @@ SilverStripe\CMS\Model\SiteTree:
 SilverStripe\Widgets\Model\Widget:
   extensions:
     - WidgetSets\Extensions\WidgetSetWidgetExtension
+SilverStripe\Widgets\Model\WidgetArea:
+  extensions:
+    - WidgetSets\Extensions\WidgetAreaExtension
