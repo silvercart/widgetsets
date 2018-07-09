@@ -2,6 +2,7 @@
 
 namespace WidgetSets\Model;
 
+use SilverStripe\Control\Controller;
 use SilverStripe\Widgets\Model\Widget;
 use SilverStripe\Versioned\Versioned;
 
@@ -119,6 +120,24 @@ class WidgetSetWidget extends Widget {
         if ($this->Parent()->exists()) {
             $this->Parent()->copyVersionToStage(Versioned::DRAFT, Versioned::LIVE);
         }
+    }
+    
+    /**
+     * Returns whether this widget is displayed in content area (WidgetSetContent
+     * relation).
+     * 
+     * @return boolean
+     */
+    public function IsInContentArea() {
+        $isInContentArea = false;
+        $currentPage     = Controller::curr()->data();
+        $widgetSet       = $this->owner->Parent()->WidgetSet();
+        $matchingSet     = $currentPage->WidgetSetContent()->byID($widgetSet->ID);
+        if ($matchingSet instanceof WidgetSet &&
+            $matchingSet->exists()) {
+            $isInContentArea = true;
+        }
+        return $isInContentArea;
     }
     
 }
