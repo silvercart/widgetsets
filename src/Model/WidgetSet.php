@@ -20,42 +20,38 @@ use WidgetSets\Model\WidgetSetWidget;
  * @copyright 2017 pixeltricks GmbH
  * @license see license file in modules root directory
  */
-class WidgetSet extends DataObject {
-
+class WidgetSet extends DataObject
+{
     /**
      * Attributes
      *
      * @var array
      */
-    private static $db = array(
+    private static $db = [
         'Title' => 'Varchar(255)'
-    );
-
+    ];
     /**
      * Has-one relationships
      *
      * @var array
      */
-    private static $has_one = array(
+    private static $has_one = [
         'WidgetArea' => WidgetArea::class,
-    );
-
+    ];
     /**
      * Has-many relationships
      *
      * @var array
      */
-    private static $belongs_many_many = array(
+    private static $belongs_many_many = [
         'Pages' => SiteTree::class,
-    );
-
+    ];
     /**
      * DB table name
      *
      * @var string
      */
     private static $table_name = 'WidgetSet';
-
 
     /**
      * Returns the translated singular name of the given object. If no
@@ -66,7 +62,8 @@ class WidgetSet extends DataObject {
      * @author Sebastian Diel <sdiel@pixeltricks.de>
      * @since 04.01.2013
      */
-    public function singular_name() {
+    public function singular_name()
+    {
         return WidgetSetTools::singular_name_for($this);
     }
 
@@ -79,7 +76,8 @@ class WidgetSet extends DataObject {
      * @author Sebastian Diel <sdiel@pixeltricks.de>
      * @since 04.01.2013
      */
-    public function plural_name() {
+    public function plural_name()
+    {
         return WidgetSetTools::plural_name_for($this);
     }
 
@@ -88,20 +86,21 @@ class WidgetSet extends DataObject {
      *
      * @return FieldList
      */
-    public function getCMSFields() {
+    public function getCMSFields()
+    {
         $result = $this->extend('overrideGetCMSFields');
 
-        if (is_array($result) && 
-            array_key_exists(0, $result) &&
-            $result[0] instanceof FieldList) {
+        if (is_array($result)
+            && array_key_exists(0, $result)
+            && $result[0] instanceof FieldList
+        ) {
             $fields = $result[0];
         } else {
             $fields = parent::getCMSFields();
 
             if ($this->isInDB()) {
                 $fields->addFieldsToTab('Root.Main', $this->scaffoldWidgetAreaFields());
-                
-            }                        
+            }
             $fields->removeByName('WidgetAreaID');
         }
 
@@ -118,7 +117,8 @@ class WidgetSet extends DataObject {
      *         Patrick Schneider <pschneider@pixeltricks.de>
      * @since 05.03.2014
      */
-    public function scaffoldWidgetAreaFields() {
+    public function scaffoldWidgetAreaFields()
+    {
         return self::scaffold_widget_area_fields_for($this);
     }
     
@@ -133,26 +133,27 @@ class WidgetSet extends DataObject {
      * @author Sebastian Diel <sdiel@pixeltricks.de>
      * @since 05.03.2014
      */
-    public static function scaffold_widget_area_fields_for($context) {
+    public static function scaffold_widget_area_fields_for($context)
+    {
         $fields = $context->WidgetArea()->scaffoldFormFields(
-                        array(
-                            'includeRelations'  => ($context->isInDB()),
-                            'tabbed'            => false,
-                            'ajaxSafe'          => true,
-                        )
+                [
+                    'includeRelations' => ($context->isInDB()),
+                    'tabbed'           => false,
+                    'ajaxSafe'         => true,
+                ]
         );
         if ($context->isInDB()) {
             $widgetsField = $fields->dataFieldByName('Widgets');
             $widgetsFieldConfig = $widgetsField->getConfig();
             $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
-            if (class_exists('GridFieldSortableRows')) {
-                $widgetsFieldConfig->addComponent(new GridFieldSortableRows('Sort'));
+            if (class_exists('\UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows')) {
+                $widgetsFieldConfig->addComponent(new \UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows('Sort'));
             }
             $widgetsFieldConfig->getComponentByType(GridFieldDataColumns::class)->setDisplayFields(
-                array(
+                [
                     'Title'    => $context->fieldLabel('Title'),
                     'CMSTitle' => _t(WidgetSetWidget::class . '.Type', 'Type'),
-                )
+                ]
             );
             // this is configured with a remove relation button by default which results in unaccessible widgets
             $widgetsFieldConfig->removeComponentsByType(GridFieldDeleteAction::class);
@@ -171,10 +172,11 @@ class WidgetSet extends DataObject {
      * @author Sascha Koehler <skoehler@pixeltricks.de>
      * @since 04.01.2013
      */
-    public function summaryFields() {
-        $fields = array(
+    public function summaryFields()
+    {
+        $fields = [
             'Title' => $this->fieldLabel('Title')
-        );
+        ];
 
         return $fields;
     }
@@ -189,13 +191,14 @@ class WidgetSet extends DataObject {
      * @author Roland Lehmann <rlehmann@pixeltricks.de>
      * @since 04.01.2013
      */
-    public function fieldLabels($includerelations = true) {
+    public function fieldLabels($includerelations = true)
+    {
         $fieldLabels = array_merge(
                 parent::fieldLabels($includerelations),
-                array(
+                [
                     'Title' => _t(WidgetSet::class . '.TITLE', 'Title'),
                     'Pages' => _t(WidgetSet::class . '.PAGES', 'assigned pages'),
-                )
+                ]
         );
 
         $this->extend('updateFieldLabels', $fieldLabels);
@@ -207,14 +210,16 @@ class WidgetSet extends DataObject {
      *
      * @return void
      *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
+     * @author Sebastian Diel <sdiel@pixeltricks.de>,
+     *         Sascha Koehler <skoehler@pixeltricks.de>
+     * @since 27.08.2018
      */
-    public function onAfterWrite() {
+    public function onAfterWrite()
+    {
         parent::onAfterWrite();
 
         if ($this->WidgetAreaID == 0) {
-            $widgetArea = new WidgetArea();
+            $widgetArea = WidgetArea::create();
             $widgetArea->write();
 
             $this->WidgetAreaID = $widgetArea->ID;
@@ -230,7 +235,8 @@ class WidgetSet extends DataObject {
      * @author Sascha Koehler <skoehler@pixeltricks.de>
      * @since 04.01.2013
      */
-    public function onBeforeDelete() {
+    public function onBeforeDelete()
+    {
         parent::onBeforeDelete();
 
         foreach ($this->WidgetArea()->Widgets() as $widget) {
