@@ -3,10 +3,10 @@
 namespace WidgetSets\Extensions;
 
 use SilverStripe\Core\ClassInfo;
-use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Widgets\Model\Widget;
+use WidgetSets\Forms\OptionsetField;
 use WidgetSets\Model\WidgetSetWidget;
 
 /**
@@ -15,22 +15,22 @@ use WidgetSets\Model\WidgetSetWidget;
  * @package WidgetSets
  * @subpackage Extensions
  * @author Sebastian Diel <sdiel@pixeltricks.de>
- * @since 28.09.2017
- * @copyright 2017 pixeltricks GmbH
+ * @since 27.08.2018
+ * @copyright 2018 pixeltricks GmbH
  * @license see license file in modules root directory
  */
-class WidgetSetWidgetExtension extends DataExtension {
-
+class WidgetSetWidgetExtension extends DataExtension
+{
     /**
      * array which holds all classnames of widgets which should
      * not be able to create in a widgetset
      * 
      * @var array
      */
-    private static $hidden_widgets = array(
+    private static $hidden_widgets = [
         Widget::class,
         WidgetSetWidget::class,
-    );
+    ];
 
     /**
      * manipulates the cms fields
@@ -42,7 +42,8 @@ class WidgetSetWidgetExtension extends DataExtension {
      * @author Sebastian Diel <sdiel@pixeltricks.de>
      * @since 15.11.2017
      */
-    public function updateCMSFields(FieldList $fields) {
+    public function updateCMSFields(FieldList $fields)
+    {
         if (!$this->owner->isInDB()) {
             $descendants = ClassInfo::subclassesFor(Widget::class);
             
@@ -55,10 +56,12 @@ class WidgetSetWidgetExtension extends DataExtension {
 
             foreach ($descendants as $descendant => $className) {
                 unset($descendants[$descendant]);
-                $descendants[$className] = _t($className . '.TITLE', $className);
+                $descendants[$className]             = _t($className . '.TITLE', $className);
+                $descendantsDescriptions[$className] = _t($className . '.DESCRIPTION', $className);
             }
             asort($descendants);
-            $fields->push(new DropdownField('ClassName', _t(WidgetSetWidget::class . '.Type', 'Type'), $descendants));
+            $fields->push(OptionsetField::create('ClassName', _t(WidgetSetWidget::class . '.Type', 'Type'), $descendants)->setOptionDescriptions($descendantsDescriptions));
+            
         }
     }
 
@@ -73,9 +76,11 @@ class WidgetSetWidgetExtension extends DataExtension {
      * @author Sebastian Diel <sdiel@pixeltricks.de>
      * @since 28.09.2017
      */
-    public static function prevent_widget_creation_by_class($widgetClass) {
-        if (!is_null($widgetClass) &&
-            !in_array($widgetClass, self::$hidden_widgets)) {
+    public static function prevent_widget_creation_by_class($widgetClass)
+    {
+        if (!is_null($widgetClass)
+            && !in_array($widgetClass, self::$hidden_widgets)
+        ) {
             self::$hidden_widgets[] = $widgetClass;
         }
     }

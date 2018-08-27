@@ -11,35 +11,32 @@ use WidgetSets\Model\WidgetSet;
  * @package WidgetSets
  * @subpackage Admin_Controllers
  * @author Sebastian Diel <sdiel@pixeltricks.de>
- * @since 28.09.2017
- * @copyright 2017 pixeltricks GmbH
+ * @since 27.08.2018
+ * @copyright 2018 pixeltricks GmbH
  * @license see license file in modules root directory
  */
-class WidgetSetAdmin extends ModelAdmin {
-
+class WidgetSetAdmin extends ModelAdmin
+{
     /**
      * The URL segment
      *
      * @var string
      */
     private static $url_segment = 'widget-sets';
-
     /**
      * The menu title
      *
      * @var string
      */
     private static $menu_title = 'Widget Sets';
-
     /**
      * Managed models
      *
      * @var array
      */
-    private static $managed_models = array(
+    private static $managed_models = [
         WidgetSet::class,
-    );
-
+    ];
     /**
      * We don't want the import form here.
      *
@@ -53,10 +50,11 @@ class WidgetSetAdmin extends ModelAdmin {
      *
      * @return void
      *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 27.08.2018
      */
-    public function init() {
+    public function init()
+    {
         parent::init();
         $this->extend('updateInit');
     }
@@ -66,10 +64,11 @@ class WidgetSetAdmin extends ModelAdmin {
      *
      * @return string 
      * 
-     * @author Roland Lehmann <rlehmann@pixeltricks.de>
-     * @since 11.01.2013
+     * @author Sebastian Diel <sdiel@pixeltricks.de>
+     * @since 27.08.2018
      */
-    public function SectionTitle() {
+    public function SectionTitle()
+    {
         return _t(WidgetSet::class . '.PLURALNAME', 'Widget Sets');
     }
 }
