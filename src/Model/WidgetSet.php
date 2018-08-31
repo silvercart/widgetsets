@@ -3,6 +3,7 @@
 namespace WidgetSets\Model;
 
 use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\ORM\DataObject;
