@@ -31,7 +31,7 @@
  * @since 04.01.2013
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
-class WidgetSetTools extends Object {
+class WidgetSetTools extends SS_Object {
 
     /**
      * Returns the translated singular name of the given object. If no
