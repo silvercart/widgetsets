@@ -20,6 +20,9 @@
  * @package Widgetsets
  * @subpackage Config
  */
+if (!class_exists('SS_Object')) {
+    class_alias('Object', 'SS_Object');
+}
 
 SiteTree::add_extension('WidgetSetPageExtension');
 ContentController::add_extension('WidgetSetPageExtension_Controller');
