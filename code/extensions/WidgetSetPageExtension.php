@@ -339,16 +339,21 @@ class WidgetSetPageExtension_Controller extends DataExtension {
      * 
      * @return string
      * 
-     * @author Patrick Schneider <pschneider@pixeltricks.de>
-     * @since 30.01.2013
+     * @author Sebastian Diel <sdiel@pixeltricks.de>,
+     *         Patrick Schneider <pschneider@pixeltricks.de>
+     * @since 01.02.2019
      */
-    public function InsertWidgetArea($identifier = 'Sidebar') {
+    public function InsertWidgetArea($identifier = 'Sidebar')
+    {
+        $beforeOutput = '';
+        $this->owner->extend('onBeforeInsertWidgetArea', $beforeOutput, $identifier);
         $output = $this->getWidgetOutput($identifier);
         if (!$output) {
             $output = $this->owner->getWidgetSetsFromParent($this->owner->dataRecord, $identifier);
             $this->saveWidgetOutput($identifier, $output);
         }
+        $output = "{$beforeOutput}{$output}";
+        $this->owner->extend('onAfterInsertWidgetArea', $output, $identifier);
         return $output;
     }
-
 }
