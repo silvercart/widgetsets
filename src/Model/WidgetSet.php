@@ -147,7 +147,9 @@ class WidgetSet extends DataObject
             $widgetsField = $fields->dataFieldByName('Widgets');
             $widgetsFieldConfig = $widgetsField->getConfig();
             $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
-            if (class_exists('\UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows')) {
+            if (class_exists('\Symbiote\GridFieldExtensions\GridFieldOrderableRows')) {
+                $widgetsFieldConfig->addComponent(new \Symbiote\GridFieldExtensions\GridFieldOrderableRows('Sort'));
+            } elseif (class_exists('\UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows')) {
                 $widgetsFieldConfig->addComponent(new \UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows('Sort'));
             }
             $widgetsFieldConfig->getComponentByType(GridFieldDataColumns::class)->setDisplayFields(
@@ -161,6 +163,8 @@ class WidgetSet extends DataObject
             // so we add a new one without a relation button
             $widgetsFieldConfig->addComponent(new GridFieldDeleteAction());
         }
+        $fields->removeByName('LinkTracking');
+        $fields->removeByName('FileTracking');
         
         return $fields;
     }
