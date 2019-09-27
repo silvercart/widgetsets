@@ -1,19 +1,19 @@
 en:
-  WidgetSets\Model\WidgetSetWidget:
-    SORT_ORDER_LABEL: "Sort order"
-    CONTENT: "Content"
-    Type: "Type"
-    FRONTTITLE: "Headline"
-    FRONTCONTENT: "Content"
-    CssFieldLabel: "Additional CSS class (optional):"
-    WIDGETSET_CONTENT_FIELD_LABEL: "Widgets for the content area"
-    WIDGETSET_SIDEBAR_FIELD_LABEL: "Widgets for the sidebar"
-    ASSIGNED_WIDGETS: "Assigned Widgets"
-    INHERIT_FROM_PARENT: "Inherit widgets from parent"
-  WidgetSets\Model\WidgetSet:
-    PLURALNAME: "Widget sets"
-    SINGULARNAME: "Widget set"
-    PAGES: "assigned pages"
-    TITLE: "Title"
-  WidgetSets\Admin\Controllers\WidgetSetAdmin:
-    MENUTITLE: "Widget Sets" 
+    WidgetSets\Model\WidgetSetWidget:
+        SORT_ORDER_LABEL: 'Sort order'
+        CONTENT: Content
+        Type: Type
+        FRONTTITLE: Headline
+        FRONTCONTENT: Content
+        CssFieldLabel: 'Additional CSS class (optional):'
+        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets for the content area'
+        WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets for the sidebar'
+        ASSIGNED_WIDGETS: 'Assigned Widgets'
+        INHERIT_FROM_PARENT: 'Inherit widgets from parent'
+    WidgetSets\Model\WidgetSet:
+        PLURALNAME: 'Widget sets'
+        SINGULARNAME: 'Widget set'
+        PAGES: 'assigned pages'
+        TITLE: Title
+    WidgetSets\Admin\Controllers\WidgetSetAdmin:
+        MENUTITLE: 'Widget Sets'
