@@ -1,0 +1,19 @@
+it:
+    WidgetSets\Model\WidgetSetWidget:
+        SORT_ORDER_LABEL: 'Tipo di ordine'
+        CONTENT: Contenuto
+        Type: tipo
+        FRONTTITLE: Intestazione
+        FRONTCONTENT: Descrizione
+        CssFieldLabel: 'Classi aggiuntive CSS (facoltativo):'
+        WIDGETSET_CONTENT_FIELD_LABEL: 'Widget per l''area contenuti'
+        WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widget per la barra laterale'
+        ASSIGNED_WIDGETS: 'Widget assegnati'
+        INHERIT_FROM_PARENT: 'Applicare widget della pagina principale'
+    WidgetSets\Model\WidgetSet:
+        PLURALNAME: 'Set di widget'
+        SINGULARNAME: 'Set di widget'
+        PAGES: 'pagine associate'
+        TITLE: Titolo
+    WidgetSets\Admin\Controllers\WidgetSetAdmin:
+        MENUTITLE: 'Set di widget'
