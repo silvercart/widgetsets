@@ -11,8 +11,8 @@ it:
         ASSIGNED_WIDGETS: 'Widget assegnati'
         INHERIT_FROM_PARENT: 'Applicare widget della pagina principale'
     WidgetSets\Model\WidgetSet:
-        PLURALNAME: 'Set di widget'
-        SINGULARNAME: 'Set di widget'
+        PLURALNAME: 'Widget Sets'
+        SINGULARNAME: 'Widget Set'
         PAGES: 'pagine associate'
         TITLE: Titolo
     WidgetSets\Admin\Controllers\WidgetSetAdmin:
