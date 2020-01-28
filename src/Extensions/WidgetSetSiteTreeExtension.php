@@ -10,6 +10,7 @@ use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\ORM\SS_List;
 use WidgetSets\Model\WidgetSet;
 use WidgetSets\Model\WidgetSetWidget;
@@ -24,40 +25,37 @@ use WidgetSets\Model\WidgetSetWidget;
  * @copyright 2017 pixeltricks GmbH
  * @license see license file in modules root directory
  */
-class WidgetSetSiteTreeExtension extends DataExtension {
-
+class WidgetSetSiteTreeExtension extends DataExtension
+{
     /**
      * db fields
      * 
      * @var array
      */
-    private static $db = array(
+    private static $db = [
         'InheritFromParent' => 'Boolean(1)',
-    );
-
+    ];
     /**
      * array to add many_many relations
      *
      * @var array
      */
-    private static $many_many = array(
+    private static $many_many = [
         'WidgetSetSidebar' => WidgetSet::class,
         'WidgetSetContent' => WidgetSet::class,
-    );
-
+    ];
     /**
      * contains all registered widget sets
      *
      * @var array
      */
-    protected $registeredWidgetSets = null;
-
+    protected $registeredWidgetSets = [];
     /**
      * contains all controller for the registered widget sets
      *
      * @var array
      */
-    protected $registeredWidgetSetController = array();
+    protected $registeredWidgetSetController = [];
 
     /**
      * updates cms fields and adds widgetset gridfields
@@ -69,20 +67,16 @@ class WidgetSetSiteTreeExtension extends DataExtension {
      * @author Patrick Schneider <pschneider@pixeltricks.de>
      * @since 04.01.2013
      */
-    public function updateCMSFields(FieldList $fields) {
-
-        $inheritFromParentField      = new CheckboxField('InheritFromParent', '');
-        $inheritFromParentFieldGroup = new FieldGroup($inheritFromParentField);
+    public function updateCMSFields(FieldList $fields) : void
+    {
+        $inheritFromParentField      = CheckboxField::create('InheritFromParent', '');
+        $inheritFromParentFieldGroup = FieldGroup::create($inheritFromParentField);
         $inheritFromParentFieldGroup->setTitle($this->owner->fieldLabel('InheritFromParent'));
-
-        $config = GridFieldConfig_RelationEditor::create();
-
-        $widgetSetSidebarLabel = new HeaderField('WidgetSetSidebarLabel', $this->owner->fieldLabel('WidgetSetSidebarLabel'));
-        $widgetSetSidebarField = new GridField("WidgetSetSidebar", $this->owner->fieldLabel('AssignedWidgets'), $this->owner->WidgetSetSidebar(), $config);
-
-        $widgetSetContentlabel = new HeaderField('WidgetSetContentLabel', $this->owner->fieldLabel('WidgetSetContentLabel'));
-        $widgetSetContentField = new GridField("WidgetSetContent", $this->owner->fieldLabel('AssignedWidgets'), $this->owner->WidgetSetContent(), $config);
-
+        $config                      = GridFieldConfig_RelationEditor::create();
+        $widgetSetSidebarLabel       = HeaderField::create('WidgetSetSidebarLabel', $this->owner->fieldLabel('WidgetSetSidebarLabel'));
+        $widgetSetSidebarField       = GridField::create("WidgetSetSidebar", $this->owner->fieldLabel('AssignedWidgets'), $this->owner->WidgetSetSidebar(), $config);
+        $widgetSetContentlabel       = HeaderField::create('WidgetSetContentLabel', $this->owner->fieldLabel('WidgetSetContentLabel'));
+        $widgetSetContentField       = GridField::create("WidgetSetContent", $this->owner->fieldLabel('AssignedWidgets'), $this->owner->WidgetSetContent(), $config);
         $fields->addFieldToTab("Root.Widgets", $inheritFromParentFieldGroup);
         $fields->addFieldToTab("Root.Widgets", $widgetSetSidebarLabel);
         $fields->addFieldToTab("Root.Widgets", $widgetSetSidebarField);
@@ -95,21 +89,19 @@ class WidgetSetSiteTreeExtension extends DataExtension {
      *
      * @param boolean $includerelations A boolean value to indicate if the labels returned include relation fields
      *
-     * @return array
+     * @return void
      *
      * @author Patrick Schneider <pschneider@pixeltricks.de>
      * @since 25.01.2013
      */
-    public function updateFieldLabels(&$labels) {
-        $labels = array_merge(
-                $labels,
-                array(
-                    'WidgetSetContentLabel' => WidgetSetWidget::singleton()->fieldLabel('WidgetSetContentLabel'),
-                    'WidgetSetSidebarLabel' => WidgetSetWidget::singleton()->fieldLabel('WidgetSetSidebarLabel'),
-                    'AssignedWidgets'       => WidgetSetWidget::singleton()->fieldLabel('AssignedWidgets'),
-                    'InheritFromParent'     => WidgetSetWidget::singleton()->fieldLabel('InheritFromParent'),
-                )
-        );
+    public function updateFieldLabels(&$labels) : void
+    {
+        $labels = array_merge($labels, [
+            'WidgetSetContentLabel' => WidgetSetWidget::singleton()->fieldLabel('WidgetSetContentLabel'),
+            'WidgetSetSidebarLabel' => WidgetSetWidget::singleton()->fieldLabel('WidgetSetSidebarLabel'),
+            'AssignedWidgets'       => WidgetSetWidget::singleton()->fieldLabel('AssignedWidgets'),
+            'InheritFromParent'     => WidgetSetWidget::singleton()->fieldLabel('InheritFromParent'),
+        ]);
     }
 
     /**
@@ -117,7 +109,8 @@ class WidgetSetSiteTreeExtension extends DataExtension {
      * 
      * @return array
      */
-    public function getRegisteredWidgetSets() {
+    public function getRegisteredWidgetSets() : array
+    {
         return $this->registeredWidgetSets;
     }
     
@@ -132,7 +125,8 @@ class WidgetSetSiteTreeExtension extends DataExtension {
      * @author Sascha Koehler <skoehler@pixeltricks.de>
      * @since 27.05.2011
      */
-    public function registerWidgetSet($widgetSetName, $widgetSetItems) {
+    public function registerWidgetSet(string $widgetSetName, $widgetSetItems) : void
+    {
         $this->registeredWidgetSets[$widgetSetName] = $widgetSetItems;
     }
 
@@ -147,24 +141,19 @@ class WidgetSetSiteTreeExtension extends DataExtension {
      * @author Patrick Schneider <pschneider@pixeltricks.de>
      * @since 30.01.2013
      */
-    public function loadWidgetControllers($context = null) {
+    public function loadWidgetControllers($context = null) : void
+    {
         if (is_null($context)) {
             $context = $this->owner;
         } 
-
         $registeredWidgetSets = $context->getRegisteredWidgetSets();
-
         foreach ($registeredWidgetSets as $registeredWidgetSetName => $registeredWidgetSetItems) {
-            $controller = new ArrayList();
-
+            $controller = ArrayList::create();
             foreach ($registeredWidgetSetItems as $registeredWidgetSetItem) {
                 $widgets = $registeredWidgetSetItem->WidgetArea()->WidgetControllers();
                 $widgets->sort('Sort', 'ASC');
-                $controller->merge(
-                    $widgets
-                );
+                $controller->merge($widgets);
             }
-
             $context->registerWidgetSetController($registeredWidgetSetName, $controller);
         }
     }
@@ -177,7 +166,8 @@ class WidgetSetSiteTreeExtension extends DataExtension {
      *
      * @return void
      */
-    public function registerWidgetSetController($registeredWidgetSetName, $controller) {
+    public function registerWidgetSetController(string $registeredWidgetSetName, $controller) : void
+    {
         $this->registeredWidgetSetController[$registeredWidgetSetName] = $controller;
     }
 
@@ -189,7 +179,8 @@ class WidgetSetSiteTreeExtension extends DataExtension {
      *
      * @return ArrayList
      */
-    public function getRegisteredWidgetSetController($registeredWidgetSetName) {
+    public function getRegisteredWidgetSetController(string $registeredWidgetSetName)
+    {
         $controller = null;
         if (array_key_exists($registeredWidgetSetName, $this->registeredWidgetSetController)) {
             $controller = $this->registeredWidgetSetController[$registeredWidgetSetName];
@@ -208,23 +199,22 @@ class WidgetSetSiteTreeExtension extends DataExtension {
      * 
      * @return string
      */
-    public function getWidgetSetsFromParent($pageToLoadFrom, $identifier) {
-        $output = '';
-        $controllerName = 'WidgetSet'.$identifier;
-
+    public function getWidgetSetsFromParent($pageToLoadFrom, string $identifier) : DBHTMLText
+    {
+        $output         = '';
+        $controllerName = "WidgetSet{$identifier}";
         $pageToLoadFrom->registerWidgetSet($controllerName, $pageToLoadFrom->{$controllerName}());
         $pageToLoadFrom->loadWidgetControllers();
-        $controller = $pageToLoadFrom->getRegisteredWidgetSetController($controllerName);
-
-        if ((is_null($controller) ||
-            $controller->Count() == 0) &&
-            $pageToLoadFrom->ParentID > 0 &&
-            $pageToLoadFrom->InheritFromParent) {
-
+        $controller     = $pageToLoadFrom->getRegisteredWidgetSetController($controllerName);
+        if ((is_null($controller)
+          || $controller->Count() == 0)
+         && $pageToLoadFrom->ParentID > 0
+         && $pageToLoadFrom->InheritFromParent
+        ) {
             return $this->getWidgetSetsFromParent($pageToLoadFrom->Parent(), $identifier);
-        } elseif (!is_null($controller) &&
-                  $controller->Count() > 0) {
-
+        } elseif (!is_null($controller)
+               && $controller->Count() > 0
+        ) {
             $widgetAreaID = 0;
             foreach ($controller as $widget) {
                 if ($widgetAreaID != $widget->ParentID) {
@@ -233,8 +223,26 @@ class WidgetSetSiteTreeExtension extends DataExtension {
                 $output .= $widget->WidgetHolder();
             }
         }
-        $tmp = new \SilverStripe\ORM\FieldType\DBHTMLText();
-        $tmp->setValue($output);
-        return $tmp;
+        return DBHTMLText::create()->setValue($output);
+    }
+    
+    /**
+     * Returns whether the widget set with the given name has widgets.
+     * 
+     * @param string $registeredWidgetSetName Name of the widget set to check
+     * 
+     * @return bool
+     */
+    public function hasWidgets(string $registeredWidgetSetName) : bool
+    {
+        $has = false;
+        foreach ($this->owner->{$registeredWidgetSetName}() as $widgetSet) {
+            /* @var $widgetSet WidgetSet */
+            if ($widgetSet->WidgetArea()->Widgets()->count() > 0) {
+                $has = true;
+                break;
+            }
+        }
+        return $has;
     }
 }

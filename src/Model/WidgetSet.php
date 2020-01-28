@@ -20,6 +20,11 @@ use WidgetSets\Model\WidgetSetWidget;
  * @since 28.09.2017
  * @copyright 2017 pixeltricks GmbH
  * @license see license file in modules root directory
+ * 
+ * @property string $Title Title
+ * 
+ * @method WidgetArea                     WidgetArea() Returns the related WidgetArea.
+ * @method \SilverStripe\ORM\ManyManyList Pages()      Returns the related WidgetArea.
  */
 class WidgetSet extends DataObject
 {
@@ -58,10 +63,7 @@ class WidgetSet extends DataObject
      * Returns the translated singular name of the given object. If no
      * translation exists the class name will be returned.
      *
-     * @return string The objects singular name
-     *
-     * @author Sebastian Diel <sdiel@pixeltricks.de>
-     * @since 04.01.2013
+     * @return string
      */
     public function singular_name()
     {
@@ -72,10 +74,7 @@ class WidgetSet extends DataObject
      * Returns the translated plural name of the object. If no translation exists
      * the class name will be returned.
      *
-     * @return string the objects plural name
-     *
-     * @author Sebastian Diel <sdiel@pixeltricks.de>
-     * @since 04.01.2013
+     * @return string
      */
     public function plural_name()
     {
@@ -87,24 +86,21 @@ class WidgetSet extends DataObject
      *
      * @return FieldList
      */
-    public function getCMSFields()
+    public function getCMSFields() : FieldList
     {
         $result = $this->extend('overrideGetCMSFields');
-
         if (is_array($result)
-            && array_key_exists(0, $result)
-            && $result[0] instanceof FieldList
+         && array_key_exists(0, $result)
+         && $result[0] instanceof FieldList
         ) {
             $fields = $result[0];
         } else {
             $fields = parent::getCMSFields();
-
             if ($this->isInDB()) {
                 $fields->addFieldsToTab('Root.Main', $this->scaffoldWidgetAreaFields());
             }
             $fields->removeByName('WidgetAreaID');
         }
-
         return $fields;
     }
 
@@ -173,17 +169,12 @@ class WidgetSet extends DataObject
      * Summary fields for display in tables.
      *
      * @return array
-     *
-     * @author Sascha Koehler <skoehler@pixeltricks.de>
-     * @since 04.01.2013
      */
     public function summaryFields()
     {
-        $fields = [
+        return [
             'Title' => $this->fieldLabel('Title')
         ];
-
-        return $fields;
     }
 
     /**
@@ -192,9 +183,6 @@ class WidgetSet extends DataObject
      * @param boolean $includerelations A boolean value to indicate if the labels returned include relation fields
      *
      * @return array
-     *
-     * @author Roland Lehmann <rlehmann@pixeltricks.de>
-     * @since 04.01.2013
      */
     public function fieldLabels($includerelations = true)
     {
@@ -222,11 +210,9 @@ class WidgetSet extends DataObject
     public function onAfterWrite()
     {
         parent::onAfterWrite();
-
         if ($this->WidgetAreaID == 0) {
             $widgetArea = WidgetArea::create();
             $widgetArea->write();
-
             $this->WidgetAreaID = $widgetArea->ID;
             $this->write();
         }
@@ -243,11 +229,9 @@ class WidgetSet extends DataObject
     public function onBeforeDelete()
     {
         parent::onBeforeDelete();
-
         foreach ($this->WidgetArea()->Widgets() as $widget) {
             $widget->delete();
         }
-
         $this->WidgetArea()->delete();
     }
 }
