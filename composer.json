@@ -1,6 +1,6 @@
 {
 	"name": "silvercart/widgetsets",
-	"type": "silverstripe-module",
+	"type": "silverstripe-vendormodule",
 	"description": "Widget-Set module for SilverStripe",
 	"homepage": "http://www.silvercart.org",
 	"license": "LGPL-3.0",
