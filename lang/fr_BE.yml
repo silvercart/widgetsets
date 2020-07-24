@@ -1,0 +1,19 @@
+fr_BE:
+    WidgetSets\Model\WidgetSetWidget:
+        SORT_ORDER_LABEL: Tri
+        CONTENT: Contenu
+        Type: Type
+        FRONTTITLE: Titre
+        FRONTCONTENT: 'Texte descriptif'
+        CssFieldLabel: 'Classes CSS supplémentaires (facultatif):'
+        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets de zone de contenu'
+        WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets de la barre latérale'
+        ASSIGNED_WIDGETS: 'Widgets associés'
+        INHERIT_FROM_PARENT: 'Appliquer les widgets de la page parent'
+    WidgetSets\Model\WidgetSet:
+        PLURALNAME: 'Ensembles de widgets'
+        SINGULARNAME: 'Ensemble de widgets'
+        PAGES: 'Pages attribuées'
+        TITLE: Désignation
+    WidgetSets\Admin\Controllers\WidgetSetAdmin:
+        MENUTITLE: 'Ensembles de widgets'
