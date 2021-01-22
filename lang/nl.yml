@@ -1,15 +1,19 @@
 nl:
     WidgetSets\Model\WidgetSetWidget:
-        SORT_ORDER_LABEL: Sorteervolgorde
+        SORT_ORDER_LABEL: 'Sorteren op'
         CONTENT: Inhoud
         Type: Type
-        CssFieldLabel: 'Zusätzliche CSS Klassen (optional):'
+        FRONTTITLE: Kop
+        FRONTCONTENT: 'Beschrijving tekst'
+        CssFieldLabel: 'Extra CSS-class (optioneel):'
         WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets voor het content gebied'
         WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets voor de sidebar'
+        ASSIGNED_WIDGETS: 'Toegewezen widgets'
+        INHERIT_FROM_PARENT: 'Neem de widgets van de bovenliggende pagina over'
     WidgetSets\Model\WidgetSet:
         PLURALNAME: 'Widget sets'
         SINGULARNAME: 'Widget set'
         PAGES: 'toegekende pagina''s'
-        TITLE: Title
+        TITLE: Titel
     WidgetSets\Admin\Controllers\WidgetSetAdmin:
         MENUTITLE: 'Widget Sets'
