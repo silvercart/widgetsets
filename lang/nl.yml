@@ -4,9 +4,9 @@ nl:
         CONTENT: Inhoud
         Type: Type
         FRONTTITLE: Kop
-        FRONTCONTENT: 'Beschrijving tekst'
+        FRONTCONTENT: Inhoud
         CssFieldLabel: 'Extra CSS-class (optioneel):'
-        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets voor het content gebied'
+        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets voor het content area'
         WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets voor de sidebar'
         ASSIGNED_WIDGETS: 'Toegewezen widgets'
         INHERIT_FROM_PARENT: 'Neem de widgets van de bovenliggende pagina over'
