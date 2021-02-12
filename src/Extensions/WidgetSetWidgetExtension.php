@@ -46,18 +46,17 @@ class WidgetSetWidgetExtension extends DataExtension
     {
         if (!$this->owner->isInDB()) {
             $descendants = ClassInfo::subclassesFor(Widget::class);
-            
             foreach (self::$hidden_widgets as $className) {
                 $key = strtolower($className);
                 if (array_key_exists($key, $descendants)) {
                     unset($descendants[$key]);
                 }
             }
-
             foreach ($descendants as $descendant => $className) {
                 unset($descendants[$descendant]);
-                $descendants[$className]             = _t($className . '.TITLE', $className);
-                $descendantsDescriptions[$className] = _t($className . '.DESCRIPTION', $className);
+                $defaultTitle                        = singleton($className)->i18n_singular_name();
+                $descendants[$className]             = _t("{$className}.TITLE", $defaultTitle);
+                $descendantsDescriptions[$className] = _t("{$className}.DESCRIPTION", $defaultTitle);
             }
             asort($descendants);
             $fields->push(OptionsetField::create('ClassName', _t(WidgetSetWidget::class . '.Type', 'Type'), $descendants)->setOptionDescriptions($descendantsDescriptions));
