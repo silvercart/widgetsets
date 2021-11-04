@@ -11,7 +11,7 @@ nl_BE:
     CONTENT: Inhoud
     CssFieldLabel: 'Aanvullende CSS-klassen (optioneel):'
     FRONTCONTENT: 'Beschrijvende tekst'
-    FRONTTITLE: Kop
+    FRONTTITLE: Titel
     INHERIT_FROM_PARENT: 'Accepteer widgets van de bovenliggende pagina'
     SORT_ORDER_LABEL: Sortering
     Type: Type

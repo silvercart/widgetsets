@@ -1,17 +1,17 @@
 ru:
-    WidgetSets\Model\WidgetSetWidget:
-        SORT_ORDER_LABEL: Сортировка
-        CONTENT: содержание
-        Type: тип
-        FRONTCONTENT: 'текст описания'
-        FRONTTITLE: Заголовок
-        CssFieldLabel: 'Zusätzliche CSS Klassen (optional):'
-        WIDGETSET_CONTENT_FIELD_LABEL: 'виджет для содержимого'
-        WIDGETSET_SIDEBAR_FIELD_LABEL: 'виджет для панели инструментов'
-    WidgetSets\Model\WidgetSet:
-        PLURALNAME: 'наборы виджетов'
-        SINGULARNAME: 'набор виджетов'
-        PAGES: 'выбранные страницы'
-        TITLE: название
-    WidgetSets\Admin\Controllers\WidgetSetAdmin:
-        MENUTITLE: 'наборы виджетов'
+  WidgetSets\Admin\Controllers\WidgetSetAdmin:
+    MENUTITLE: 'наборы виджетов'
+  WidgetSets\Model\WidgetSet:
+    PAGES: 'выбранные страницы'
+    PLURALNAME: 'наборы виджетов'
+    SINGULARNAME: 'набор виджетов'
+    TITLE: название
+  WidgetSets\Model\WidgetSetWidget:
+    CONTENT: содержание
+    CssFieldLabel: 'Zusätzliche CSS Klassen (optional):'
+    FRONTCONTENT: 'текст описания'
+    FRONTTITLE: Заголовок
+    SORT_ORDER_LABEL: Сортировка
+    Type: тип
+    WIDGETSET_CONTENT_FIELD_LABEL: 'виджет для содержимого'
+    WIDGETSET_SIDEBAR_FIELD_LABEL: 'виджет для панели инструментов'
