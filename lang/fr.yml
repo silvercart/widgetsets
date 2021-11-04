@@ -1,19 +1,19 @@
 fr:
-    WidgetSets\Model\WidgetSetWidget:
-        SORT_ORDER_LABEL: Tri
-        CONTENT: Contenu
-        Type: Type
-        FRONTTITLE: Titre
-        FRONTCONTENT: 'Texte descriptif'
-        CssFieldLabel: 'Classes CSS supplémentaires (facultatif) :'
-        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets de la zone des contenus'
-        WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets de barre latérale'
-        ASSIGNED_WIDGETS: 'Widgets associés'
-        INHERIT_FROM_PARENT: 'Accepter les widgets de la page mère'
-    WidgetSets\Model\WidgetSet:
-        PLURALNAME: 'Ensembles de widgets'
-        SINGULARNAME: 'Ensemble de widgets'
-        PAGES: 'Pages attribuées'
-        TITLE: Désignation
-    WidgetSets\Admin\Controllers\WidgetSetAdmin:
-        MENUTITLE: 'Ensembles de widgets'
+  WidgetSets\Admin\Controllers\WidgetSetAdmin:
+    MENUTITLE: 'Ensembles de widgets'
+  WidgetSets\Model\WidgetSet:
+    PAGES: 'Pages attribuées'
+    PLURALNAME: 'Ensembles de widgets'
+    SINGULARNAME: 'Ensemble de widgets'
+    TITLE: Désignation
+  WidgetSets\Model\WidgetSetWidget:
+    ASSIGNED_WIDGETS: 'Widgets associés'
+    CONTENT: Contenu
+    CssFieldLabel: 'Classes CSS supplémentaires (facultatif) :'
+    FRONTCONTENT: 'Texte descriptif'
+    FRONTTITLE: Titre
+    INHERIT_FROM_PARENT: 'Accepter les widgets de la page mère'
+    SORT_ORDER_LABEL: Tri
+    Type: Type
+    WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets de la zone des contenus'
+    WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets de barre latérale'

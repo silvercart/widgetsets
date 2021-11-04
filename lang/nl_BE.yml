@@ -1,19 +1,19 @@
 nl_BE:
-    WidgetSets\Model\WidgetSetWidget:
-        SORT_ORDER_LABEL: Sortering
-        CONTENT: Inhoud
-        Type: Type
-        FRONTTITLE: Kop
-        FRONTCONTENT: 'Beschrijvende tekst'
-        CssFieldLabel: 'Aanvullende CSS-klassen (optioneel):'
-        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets in het inhoudsgebied'
-        WIDGETSET_SIDEBAR_FIELD_LABEL: Zijbalk-widgets
-        ASSIGNED_WIDGETS: 'Bijbehorende widgets'
-        INHERIT_FROM_PARENT: 'Accepteer widgets van de bovenliggende pagina'
-    WidgetSets\Model\WidgetSet:
-        PLURALNAME: Widgetsets
-        SINGULARNAME: Widgetset
-        PAGES: 'Toegewezen pagina''s'
-        TITLE: Label
-    WidgetSets\Admin\Controllers\WidgetSetAdmin:
-        MENUTITLE: Widgetsets
+  WidgetSets\Admin\Controllers\WidgetSetAdmin:
+    MENUTITLE: Widgetsets
+  WidgetSets\Model\WidgetSet:
+    PAGES: 'Toegewezen pagina''s'
+    PLURALNAME: Widgetsets
+    SINGULARNAME: Widgetset
+    TITLE: Label
+  WidgetSets\Model\WidgetSetWidget:
+    ASSIGNED_WIDGETS: 'Bijbehorende widgets'
+    CONTENT: Inhoud
+    CssFieldLabel: 'Aanvullende CSS-klassen (optioneel):'
+    FRONTCONTENT: 'Beschrijvende tekst'
+    FRONTTITLE: Kop
+    INHERIT_FROM_PARENT: 'Accepteer widgets van de bovenliggende pagina'
+    SORT_ORDER_LABEL: Sortering
+    Type: Type
+    WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets in het inhoudsgebied'
+    WIDGETSET_SIDEBAR_FIELD_LABEL: Zijbalk-widgets

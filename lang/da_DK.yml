@@ -1,19 +1,19 @@
 da_DK:
-    WidgetSets\Model\WidgetSetWidget:
-        SORT_ORDER_LABEL: Sortering
-        CONTENT: Indhold
-        Type: Type
-        FRONTTITLE: Overskrift
-        FRONTCONTENT: Indhold
-        CssFieldLabel: 'Yderligere CSS-klasser (valgfrit):'
-        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets til indholdsområdet'
-        WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets til sidebaren'
-        ASSIGNED_WIDGETS: 'Tildelte widgets'
-        INHERIT_FROM_PARENT: 'Arve widgets fra forældrene'
-    WidgetSets\Model\WidgetSet:
-        PLURALNAME: Widget-sæt
-        SINGULARNAME: 'Widget sæt'
-        PAGES: 'tilhørende sider'
-        TITLE: Titel
-    WidgetSets\Admin\Controllers\WidgetSetAdmin:
-        MENUTITLE: Widget-sæt
+  WidgetSets\Admin\Controllers\WidgetSetAdmin:
+    MENUTITLE: Widget-sæt
+  WidgetSets\Model\WidgetSet:
+    PAGES: 'tilhørende sider'
+    PLURALNAME: Widget-sæt
+    SINGULARNAME: 'Widget sæt'
+    TITLE: Titel
+  WidgetSets\Model\WidgetSetWidget:
+    ASSIGNED_WIDGETS: 'Tildelte widgets'
+    CONTENT: Indhold
+    CssFieldLabel: 'Yderligere CSS-klasser (valgfrit):'
+    FRONTCONTENT: Indhold
+    FRONTTITLE: Overskrift
+    INHERIT_FROM_PARENT: 'Arve widgets fra forældrene'
+    SORT_ORDER_LABEL: Sortering
+    Type: Type
+    WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets til indholdsområdet'
+    WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets til sidebaren'

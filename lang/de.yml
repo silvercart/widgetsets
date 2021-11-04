@@ -1,19 +1,19 @@
 de:
-    WidgetSets\Model\WidgetSetWidget:
-        SORT_ORDER_LABEL: Sortierung
-        CONTENT: Inhalt
-        Type: Typ
-        FRONTTITLE: Überschrift
-        FRONTCONTENT: Beschreibungstext
-        CssFieldLabel: 'Zusätzliche CSS Klassen (optional):'
-        WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets für den Inhaltsbereich'
-        WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets für die Seitenleiste'
-        ASSIGNED_WIDGETS: 'Zugeordnete Widgets'
-        INHERIT_FROM_PARENT: 'Widgets der übergeordneten Seite übernehmen'
-    WidgetSets\Model\WidgetSet:
-        PLURALNAME: 'Widget Sets'
-        SINGULARNAME: 'Widget Set'
-        PAGES: 'zugeordnete Seiten'
-        TITLE: Bezeichnung
-    WidgetSets\Admin\Controllers\WidgetSetAdmin:
-        MENUTITLE: 'Widget Sets'
+  WidgetSets\Admin\Controllers\WidgetSetAdmin:
+    MENUTITLE: 'Widget Sets'
+  WidgetSets\Model\WidgetSet:
+    PAGES: 'zugeordnete Seiten'
+    PLURALNAME: 'Widget Sets'
+    SINGULARNAME: 'Widget Set'
+    TITLE: Bezeichnung
+  WidgetSets\Model\WidgetSetWidget:
+    ASSIGNED_WIDGETS: 'Zugeordnete Widgets'
+    CONTENT: Inhalt
+    CssFieldLabel: 'Zusätzliche CSS Klassen (optional):'
+    FRONTCONTENT: Beschreibungstext
+    FRONTTITLE: Überschrift
+    INHERIT_FROM_PARENT: 'Widgets der übergeordneten Seite übernehmen'
+    SORT_ORDER_LABEL: Sortierung
+    Type: Typ
+    WIDGETSET_CONTENT_FIELD_LABEL: 'Widgets für den Inhaltsbereich'
+    WIDGETSET_SIDEBAR_FIELD_LABEL: 'Widgets für die Seitenleiste'
