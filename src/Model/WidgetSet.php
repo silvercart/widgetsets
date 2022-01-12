@@ -4,10 +4,14 @@ namespace WidgetSets\Model;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Widgets\Model\WidgetArea;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
 use WidgetSets\Dev\WidgetSetTools;
 use WidgetSets\Model\WidgetSetWidget;
 
@@ -142,11 +146,12 @@ class WidgetSet extends DataObject
         if ($context->isInDB()) {
             $widgetsField = $fields->dataFieldByName('Widgets');
             $widgetsFieldConfig = $widgetsField->getConfig();
-            $widgetsFieldConfig->removeComponentsByType('GridFieldAddExistingAutocompleter');
-            if (class_exists('\Symbiote\GridFieldExtensions\GridFieldOrderableRows')) {
-                $widgetsFieldConfig->addComponent(new \Symbiote\GridFieldExtensions\GridFieldOrderableRows('Sort'));
-            } elseif (class_exists('\UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows')) {
-                $widgetsFieldConfig->addComponent(new \UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows('Sort'));
+            $widgetsFieldConfig->removeComponentsByType(GridFieldAddExistingAutocompleter::class);
+            $widgetsFieldConfig->removeComponentsByType(GridFieldFilterHeader::class);
+            if (class_exists(GridFieldOrderableRows::class)) {
+                $widgetsFieldConfig->addComponent(GridFieldOrderableRows::create('Sort'));
+            } elseif (class_exists(GridFieldSortableRows::class)) {
+                $widgetsFieldConfig->addComponent(new GridFieldSortableRows('Sort'));
             }
             $widgetsFieldConfig->getComponentByType(GridFieldDataColumns::class)->setDisplayFields(
                 [
