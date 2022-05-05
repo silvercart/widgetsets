@@ -217,6 +217,9 @@ class WidgetSetSiteTreeExtension extends DataExtension
         ) {
             $widgetAreaID = 0;
             foreach ($controller as $widget) {
+                if (!$widget->canView()) {
+                    continue;
+                }
                 if ($widgetAreaID != $widget->ParentID) {
                     $widgetAreaID = $widget->ParentID;
                 }
