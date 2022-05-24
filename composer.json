@@ -8,14 +8,10 @@
 	"authors": [
 		{
 			"name": "SilverCart",
-			"homepage": "http://www.silvercart.org"
-		},
-		{
-			"name": "pixeltricks",
-			"homepage": "http://www.pixeltricks.de"
+			"homepage": "https://www.silvercart.de"
 		}
 	],
 	"require": {
-		"silverstripe/cms": "^4"
+		"silverstripe/widgets": "^2.2"
 	}
 }
