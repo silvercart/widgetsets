@@ -33,6 +33,18 @@ class WidgetSetWidgetExtension extends DataExtension
     ];
 
     /**
+     * Extend permissions to include additional security for objects that are not published to live.
+     *
+     * @param Member $member 
+     * 
+     * @return bool|null
+     */
+    public function canView($member = null)
+    {
+        return $this->owner->canViewVersioned($member);
+    }
+
+    /**
      * manipulates the cms fields
      *
      * @param FieldList $fields cms fields
