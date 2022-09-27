@@ -9,7 +9,7 @@ use WidgetSets\Model\WidgetSet;
  * ModelAdmin for WidgetSets.
  *
  * @package WidgetSets
- * @subpackage Admin_Controllers
+ * @subpackage Admin\Controllers
  * @author Sebastian Diel <sdiel@pixeltricks.de>
  * @since 27.08.2018
  * @copyright 2018 pixeltricks GmbH
@@ -29,6 +29,18 @@ class WidgetSetAdmin extends ModelAdmin
      * @var string
      */
     private static $menu_title = 'Widget Sets';
+    /**
+     * Menu icon
+     * 
+     * @var string
+     */
+    private static $menu_icon = null;
+    /**
+     * Menu icon CSS class
+     * 
+     * @var string
+     */
+    private static $menu_icon_class = 'font-icon-block-layout';
     /**
      * Managed models
      *
